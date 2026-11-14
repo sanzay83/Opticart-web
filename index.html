@@ -22,6 +22,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+body.menu-open{overflow:hidden}
 a{color:inherit}
 img{max-width:100%;display:block}
 button,[role="button"],a.btn,select,input{ min-height:44px; }
@@ -47,7 +48,9 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .nav-links{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
 .nav-links a{text-decoration:none;font-weight:600;font-size:14.5px;padding:10px 12px;border-radius:999px}
 .nav-links a:hover{background:var(--band)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px;border:1px solid transparent;cursor:pointer;transition:.18s;background:#fff}
+.nav-links a.active{background:var(--blue-soft);color:var(--blue-dark)}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px;border:1px solid transparent;cursor:pointer;transition:.18s;background:#fff;font-family:inherit}
 .btn-blue{background:var(--blue);color:#fff}
 .btn-blue:hover{background:var(--blue-dark)}
 .btn-wa{background:var(--wa);color:#fff}
@@ -56,6 +59,39 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .btn-outline:hover{border-color:var(--blue);color:var(--blue-dark)}
 .btn-white{background:#fff;color:var(--blue-dark)}
 .btn-sm{padding:10px 16px;font-size:14px}
+
+/* Hamburger + mobile slide-in menu */
+.hamburger{display:none;width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:#fff;place-items:center;cursor:pointer;color:var(--ink);flex-shrink:0}
+.hamburger:hover{border-color:var(--blue);color:var(--blue-dark)}
+.menu-backdrop{position:fixed;inset:0;background:rgba(10,25,40,.48);z-index:90;opacity:0;transition:opacity .25s ease}
+.menu-backdrop.show{opacity:1}
+.mobile-menu{position:fixed;top:0;right:0;height:100dvh;width:min(332px,88vw);background:#fff;z-index:100;transform:translateX(106%);transition:transform .28s ease;display:flex;flex-direction:column;box-shadow:-16px 0 44px rgba(10,30,55,.22);visibility:hidden}
+.mobile-menu.open{transform:none;visibility:visible}
+.mm-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.mm-close{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--ink);flex-shrink:0}
+.mm-close:hover{border-color:var(--blue);color:var(--blue-dark)}
+.mm-links{padding:12px;display:grid;gap:4px;overflow-y:auto}
+.mm-links a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 14px;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px;min-height:52px}
+.mm-links a .arr{color:var(--muted);font-weight:800}
+.mm-links a:hover{background:var(--band)}
+.mm-links a.active{background:var(--blue-soft);color:var(--blue-dark)}
+.mm-links a.active .arr{color:var(--blue)}
+.mm-foot{margin-top:auto;padding:16px;border-top:1px solid var(--line);display:grid;gap:8px;background:var(--band)}
+.mm-foot .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mm-foot a{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 6px;border-radius:999px;text-decoration:none;font-weight:800;font-size:13.5px;min-height:48px;text-align:center}
+.mm-foot p{margin:2px 0 0;font-size:12.5px;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion: reduce){.mobile-menu,.menu-backdrop{transition:none}}
+
+/* Pages (multi-page views) */
+.page-view{display:none}
+.page-view.active{display:block}
+.page-hero{padding:42px 0 6px;background:linear-gradient(180deg,var(--band-blue) 0%,#ffffff 100%)}
+.page-hero h1{font-size:clamp(34px,5vw,50px);line-height:1.05;letter-spacing:-.03em;margin:12px 0 10px;font-weight:800}
+.page-hero h1 em{font-style:normal;color:var(--blue)}
+.page-hero p.lead{font-size:17.5px;color:var(--muted);max-width:640px;margin:0}
+.crumb{font-size:13px;font-weight:700;color:var(--muted)}
+.crumb a{color:var(--blue-dark);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
 
 /* Hero */
 .hero{padding:44px 0 36px;background:linear-gradient(180deg,var(--band-blue) 0%,#ffffff 100%)}
@@ -120,7 +156,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .filter-group{display:grid;gap:8px}
 .filter-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--muted)}
 .filters{display:flex;flex-wrap:wrap;gap:8px}
-.filter-btn{border:1px solid var(--line);background:#fff;padding:10px 16px;border-radius:999px;font-weight:700;cursor:pointer;font-size:14px;color:var(--ink)}
+.filter-btn{border:1px solid var(--line);background:#fff;padding:10px 16px;border-radius:999px;font-weight:700;cursor:pointer;font-size:14px;color:var(--ink);font-family:inherit}
 .filter-btn:hover{border-color:var(--blue);color:var(--blue-dark)}
 .filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
 .shop-controls-row{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end;justify-content:space-between;border-top:1px solid var(--line);padding-top:14px}
@@ -130,8 +166,9 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .results-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .results-count{font-size:14.5px;font-weight:700;color:var(--ink);margin:0}
 .results-count span{color:var(--blue-dark)}
-.clear-btn{border:none;background:none;color:var(--blue-dark);font-weight:700;font-size:14px;cursor:pointer;padding:8px 4px;text-decoration:underline;text-underline-offset:3px}
+.clear-btn{border:none;background:none;color:var(--blue-dark);font-weight:700;font-size:14px;cursor:pointer;padding:8px 4px;text-decoration:underline;text-underline-offset:3px;font-family:inherit}
 .collection{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.teaser-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .product{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
 .product img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--band)}
 .product-body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
@@ -150,6 +187,29 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .empty-state{background:#fff;border:1px dashed #b9cfe2;border-radius:20px;padding:36px 22px;text-align:center;box-shadow:var(--shadow)}
 .empty-state h3{margin:0 0 8px;font-size:21px;letter-spacing:-.02em}
 .empty-state p{color:var(--muted);margin:0 auto 18px;max-width:440px}
+
+/* Lens types & care pages */
+.lens-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.lens-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+.lens-card h3{margin:4px 0 0;font-size:19px;letter-spacing:-.02em}
+.lens-card p{margin:0;color:var(--muted);font-size:14.5px}
+.lens-card .who{font-size:14px;color:var(--ink)}
+.lens-card .who b{color:var(--blue-dark)}
+.lens-card .spacer{flex:1}
+.shape-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.shape-card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);text-decoration:none;display:block;transition:.18s}
+.shape-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:#c9dff5}
+.shape-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.shape-card .shape-body{padding:14px 16px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.shape-card b{font-size:16px}
+.shape-card .shape-price{color:var(--blue-dark);font-weight:800;font-size:14.5px;white-space:nowrap}
+.care-list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+.care-list li{display:flex;gap:10px;font-size:15px;color:var(--muted)}
+.care-list li b{color:var(--ink)}
+.care-list .mk{flex-shrink:0;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:1px}
+.mk-do{background:var(--teal-soft);color:var(--teal)}
+.mk-dont{background:#fdeeee;color:#a61c1c}
+.kit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:820px}
 
 /* Eye-test CTA banner */
 .cta-banner{background:linear-gradient(120deg,var(--blue) 0%,#0a8fa8 100%);border-radius:24px;color:#fff;padding:36px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;box-shadow:var(--shadow-lg)}
@@ -212,7 +272,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .booking p{color:var(--muted)}
 .form{display:grid;gap:10px}
 .form label{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-.form input,.form select{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--band);color:var(--ink);font-size:15px}
+.form input,.form select{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--band);color:var(--ink);font-size:15px;font-family:inherit}
 .pill{display:inline-flex;align-items:center;gap:7px;background:var(--blue-soft);color:var(--blue-dark);padding:6px 12px;border-radius:999px;font-weight:700;font-size:13px}
 
 /* Footer */
@@ -223,33 +283,48 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
 .sticky-cta{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .sticky-cta a{display:flex;align-items:center;justify-content:center;gap:7px;padding:13px 8px;border-radius:999px;text-decoration:none;font-weight:800;font-size:14px;box-shadow:0 10px 24px rgba(0,0,0,.18);min-height:48px}
 @media(min-width:860px){.sticky-cta{display:none} footer{padding-bottom:36px}}
+@media(max-width:1100px){.teaser-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:1000px){.collection{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){
   .hero-grid,.grid2,.visit,.booking,.cta-banner{grid-template-columns:1fr}
-  .grid3,.testi,.why-grid{grid-template-columns:1fr}
+  .grid3,.testi,.why-grid,.lens-grid{grid-template-columns:1fr}
   .cat-grid{grid-template-columns:1fr 1fr}
   .collection{grid-template-columns:1fr}
+  .shape-grid{grid-template-columns:1fr 1fr}
+  .kit-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr 1fr}
   .hours-grid{grid-template-columns:1fr}
   .trust-inner{grid-template-columns:1fr}
   .stats-inner{grid-template-columns:1fr 1fr}
   .nav-links{display:none}
+  .hamburger{display:grid}
   .float-1{left:8px}
   .float-2{right:8px;width:190px}
   .footer-grid{grid-template-columns:1fr}
-  .nav{flex-wrap:wrap}
+  .nav{flex-wrap:nowrap}
   .logo b{font-size:19px}
   .logo span{font-size:9.5px;letter-spacing:.1em}
   .logo-mark{width:38px;height:38px;border-radius:10px}
   .nav .btn-sm{padding:9px 12px;font-size:13px;white-space:nowrap}
   .cta-banner{padding:26px}
 }
+@media(max-width:640px){
+  .nav-actions .btn-outline{display:none}
+  .teaser-grid{grid-template-columns:1fr}
+  .shape-grid{grid-template-columns:1fr}
+}
 @media(max-width:480px){
   .topbar-inner{font-size:12.5px}
   .hero h1{font-size:42px}
   .float-1{width:200px;bottom:12px}
   .cat-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .nav-actions .btn-blue{display:none}
 }
+
+@media(max-width:859px){html{scroll-padding-bottom:110px}}
+@media(max-width:560px){.tb-hours{display:none}}
+@media(max-width:480px){.hero{padding-top:22px}.hero h1{margin:12px 0 10px}.rating-box{margin:12px 0}.hero-ctas{margin:14px 0 12px}}
+@media(max-width:900px){.hero-grid>div:first-child{display:flex;flex-direction:column;align-items:flex-start}.hero-ctas{order:4;align-self:stretch}.rating-box{order:5}.hero-meta{order:6}}
 </style>
 </head>
 <body>
@@ -258,7 +333,7 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
   <div class="container topbar-inner">
     <div class="grp">
       <span class="status-pill"><span class="dot" id="openDot"></span><span id="openText">Open every day</span></span>
-      <span>🕐 Sun–Fri 8 AM–8 PM · Sat 8 AM–9 PM</span>
+      <span class="tb-hours">🕐 Sun–Fri 8 AM–8 PM · Sat 8 AM–9 PM</span>
       <span><span class="stars">★★★★★</span> <strong>4.9</strong> · 102 Google reviews</span>
     </div>
     <div class="grp">
@@ -270,25 +345,61 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
 
 <header class="site">
   <div class="container nav">
-    <a class="logo" href="#top" aria-label="Opticart home">
+    <a class="logo" href="index.html" aria-label="Opticart home">
       <span class="logo-mark" aria-hidden="true">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="7" cy="14" r="3.2"/><circle cx="17" cy="14" r="3.2"/><path d="M10.2 14h3.6M3.8 14 2 9m20 5 1.8-5"/></svg>
       </span>
       <span><b>OPTICART</b><span>Eyecare Center • Bhaktapur</span></span>
     </a>
     <nav class="nav-links" aria-label="Main">
-      <a href="#categories">Shop</a><a href="#services">Services</a><a href="#collection">Collection</a><a href="#eye-test">Eye Test</a><a href="#reviews">Reviews</a><a href="#visit">Visit Us</a>
+      <a href="index.html" data-nav="home" class="active" aria-current="page">Home</a>
+      <a href="assets/checkup.html" data-nav="checkup">Checkup</a>
+      <a href="assets/collections.html" data-nav="collections">Collections</a>
+      <a href="assets/glasses-types.html" data-nav="glasses-types">Glasses Types</a>
+      <a href="assets/eye-care-kit.html" data-nav="eye-care-kit">Eye Care Kit</a>
+      <a href="assets/about.html" data-nav="about">About Us</a>
     </nav>
-    <div style="display:flex;gap:8px">
+    <div class="nav-actions">
       <a class="btn btn-outline btn-sm" href="https://maps.app.goo.gl/D6nKyBReMZUmKQRM9?g_st=ac" target="_blank" rel="noopener">Directions</a>
-      <a class="btn btn-blue btn-sm" href="https://wa.me/9779701926426?text=Hello%20Opticart%2C%20I%20want%20to%20book%20an%20eye%20checkup." target="_blank" rel="noopener">Book Checkup</a>
+      <a class="btn btn-blue btn-sm" href="assets/checkup.html">Book Checkup</a>
+      <button class="hamburger" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </div>
 </header>
 
+<div class="menu-backdrop" id="menuBackdrop" hidden></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Menu" aria-hidden="true">
+  <div class="mm-head">
+    <span style="display:flex;align-items:center;gap:10px">
+      <span class="logo-mark" style="width:38px;height:38px;border-radius:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="7" cy="14" r="3.2"/><circle cx="17" cy="14" r="3.2"/><path d="M10.2 14h3.6M3.8 14 2 9m20 5 1.8-5"/></svg></span>
+      <b style="font-size:18px;letter-spacing:-.02em">OPTICART</b>
+    </span>
+    <button class="mm-close" id="menuClose" type="button" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+  <div class="mm-links">
+    <a href="index.html" data-nav="home" class="active" aria-current="page">Home <span class="arr">→</span></a>
+    <a href="assets/checkup.html" data-nav="checkup">Checkup <span class="arr">→</span></a>
+    <a href="assets/collections.html" data-nav="collections">Collections <span class="arr">→</span></a>
+    <a href="assets/glasses-types.html" data-nav="glasses-types">Glasses Types <span class="arr">→</span></a>
+    <a href="assets/eye-care-kit.html" data-nav="eye-care-kit">Eye Care Kit <span class="arr">→</span></a>
+    <a href="assets/about.html" data-nav="about">About Us <span class="arr">→</span></a>
+  </div>
+  <div class="mm-foot">
+    <div class="row">
+      <a href="tel:015925035" style="background:var(--blue);color:#fff">📞 Call</a>
+      <a href="https://wa.me/9779701926426?text=Hello%20Opticart%2C%20I%20want%20to%20book%20an%20eye%20checkup." target="_blank" rel="noopener" style="background:var(--wa);color:#fff">💬 WhatsApp</a>
+      <a href="https://maps.app.goo.gl/D6nKyBReMZUmKQRM9?g_st=ac" target="_blank" rel="noopener" style="background:var(--ink);color:#fff">📍 Directions</a>
+    </div>
+    <p>Open every day · Exams 8 AM–1 PM &amp; 5 PM–7 PM<br/>01-5925035 · 970-1926426</p>
+  </div>
+</nav>
+
 <main id="top">
-  <!-- HERO -->
-  <section class="hero">
+<section class="hero">
     <div class="container hero-grid">
       <div>
         <span class="eyebrow">👓 In Sabaiko Live Bakery building, Thimi &nbsp;·&nbsp; <span style="color:var(--blue)">M99P+W8 Madhyapur Thimi</span></span>
@@ -306,7 +417,7 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
         <div class="hero-ctas">
           <a class="btn btn-wa" href="https://wa.me/9779701926426?text=Hello%20Opticart%2C%20I%20want%20to%20book%20an%20eye%20checkup." target="_blank" rel="noopener">💬 Book on WhatsApp</a>
           <a class="btn btn-blue" href="tel:015925035">Call 01-5925035</a>
-          <a class="btn btn-outline" href="#collection">Browse Frames ↓</a>
+          <a class="btn btn-outline" href="assets/collections.html">Browse Frames ↓</a>
         </div>
         <div class="hero-meta">
           <span class="meta-chip">✓ Delivery available</span>
@@ -331,14 +442,14 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
   </section>
 
   <!-- SHOP BY CATEGORY -->
-  <section class="section" id="categories" style="padding-top:40px">
+  <section class="section" style="padding-top:40px">
     <div class="container">
-      <div class="sec-head"><div class="kicker">Shop by Category</div><h2>What are you <em>looking for?</em></h2><p>Start here — frames, sunglasses, lenses and kids' styles, all fitted in store.</p></div>
+      <div class="sec-head"><div class="kicker">Shop by Category</div><h2>What are you <em>looking for?</em></h2><p>Tap a category to open the Collections page with that filter already set.</p></div>
       <div class="cat-grid">
-        <a class="cat-tile" href="#collection" data-shop-category="frames"><img src="assets/frames-display.jpg" alt="Display case filled with many styles of eyeglass frames"/><div class="cat-body"><b>Eyeglass Frames</b><span class="arrow">→</span></div><p>Classic, modern, metal, acetate &amp; rimless styles</p></a>
-        <a class="cat-tile" href="#collection" data-shop-category="sunglasses"><img src="assets/polarized.jpg" alt="Black HD polarized sunglasses"/><div class="cat-body"><b>Sunglasses</b><span class="arrow">→</span></div><p>HD polarized &amp; everyday fashion sunglasses</p></a>
-        <a class="cat-tile" href="#collection" data-shop-category="lenses"><img src="assets/contact-lens.jpg" alt="Hand holding a clear contact lens near an eye"/><div class="cat-body"><b>Lenses</b><span class="arrow">→</span></div><p>Single vision, progressive, blue-light &amp; more — plus contact lens fitting in Services</p></a>
-        <a class="cat-tile" href="#collection" data-shop-gender="kids"><img src="assets/kids-frames.jpg" alt="Colourful children's eyeglass frames in bright colours"/><div class="cat-body"><b>Kids Frames</b><span class="arrow">→</span></div><p>Colourful, comfy &amp; durable — including flexible styles</p></a>
+        <a class="cat-tile" href="assets/collections.html?cat=frames"><img src="assets/frames-display.jpg" alt="Display case filled with many styles of eyeglass frames"/><div class="cat-body"><b>Eyeglass Frames</b><span class="arrow">→</span></div><p>Classic, modern, metal, acetate &amp; rimless styles</p></a>
+        <a class="cat-tile" href="assets/collections.html?cat=sunglasses"><img src="assets/polarized.jpg" alt="Black HD polarized sunglasses"/><div class="cat-body"><b>Sunglasses</b><span class="arrow">→</span></div><p>HD polarized &amp; everyday fashion sunglasses</p></a>
+        <a class="cat-tile" href="assets/collections.html?cat=lenses"><img src="assets/contact-lens.jpg" alt="Hand holding a clear contact lens near an eye"/><div class="cat-body"><b>Lenses</b><span class="arrow">→</span></div><p>Single vision, progressive, blue-light &amp; more</p></a>
+        <a class="cat-tile" href="assets/collections.html?gender=kids"><img src="assets/kids-frames.jpg" alt="Colourful children's eyeglass frames in bright colours"/><div class="cat-body"><b>Kids Frames</b><span class="arrow">→</span></div><p>Colourful, comfy &amp; durable — including flexible styles</p></a>
       </div>
     </div>
   </section>
@@ -352,181 +463,22 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
     </div>
   </div>
 
-  <!-- SERVICES -->
-  <section class="section" id="services">
+  <!-- SERVICES OVERVIEW -->
+  <section class="section">
     <div class="container">
       <div class="sec-head"><div class="kicker">Our Services</div><h2>Eye care &amp; eyewear, <em>under one roof</em></h2><p>From your checkup to your finished glasses — we check, prescribe, make and fit, so you leave seeing clearly the same visit.</p></div>
       <div class="grid3">
-        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Specialist Eye Checkup</h3><p>Professional eye exams every day by a specialist doctor — morning and evening sessions for your convenience.</p><p style="margin-top:10px"><a href="#eye-test" style="font-weight:700;color:var(--blue);text-decoration:none">See exam times →</a></p></article>
-        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="14" r="3.2"/><circle cx="17" cy="14" r="3.2"/><path d="M10.2 14h3.6M3.8 14 2 9m20 5 1.8-5"/></svg></div><h3>Spectacles &amp; Frames</h3><p>Wide variety of stylish, quality frames for every face and budget — fitted and made to your exact prescription power.</p></article>
-        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10h18l-1.6 5.2A3 3 0 0 1 16.5 17h-1.2a3 3 0 0 1-2.8-2L12 13.4l-.5 1.6a3 3 0 0 1-2.8 2H7.5a3 3 0 0 1-2.9-1.8L3 10Z"/><path d="M3 10 2 6m19 4 1-4"/></svg></div><h3>Sunglasses</h3><p>HD polarized sunglasses for glare-free, sharp vision outdoors, plus everyday fashion sunglasses.</p></article>
-        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.4"/></svg></div><h3>Contact Lenses</h3><p>Contact lenses with guidance on fitting and care — a comfortable, glasses-free option when you want it.</p></article>
-        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg></div><h3>Prescription Glasses Made In-Store</h3><p>Bring your prescription or get checked here — we make glasses to the prescribed power with the right fit.</p></article>
-        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-9.3-9A5.4 5.4 0 0 1 12 6.6 5.4 5.4 0 0 1 21.3 12C19.5 16.4 12 21 12 21Z"/></svg></div><h3>Kids Eyewear</h3><p>Colourful, comfortable and durable frames for kids — including flexible styles that stand up to everyday play.</p></article>
+        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Specialist Eye Checkup</h3><p>Professional eye exams every day by a specialist doctor — morning and evening sessions for your convenience.</p><p style="margin-top:10px"><a href="assets/checkup.html" style="font-weight:700;color:var(--blue);text-decoration:none">Checkup page &amp; exam times →</a></p></article>
+        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="14" r="3.2"/><circle cx="17" cy="14" r="3.2"/><path d="M10.2 14h3.6M3.8 14 2 9m20 5 1.8-5"/></svg></div><h3>Spectacles &amp; Frames</h3><p>Wide variety of stylish, quality frames for every face and budget — fitted and made to your exact prescription power.</p><p style="margin-top:10px"><a href="assets/collections.html?cat=frames" style="font-weight:700;color:var(--blue);text-decoration:none">Browse frames →</a></p></article>
+        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10h18l-1.6 5.2A3 3 0 0 1 16.5 17h-1.2a3 3 0 0 1-2.8-2L12 13.4l-.5 1.6a3 3 0 0 1-2.8 2H7.5a3 3 0 0 1-2.9-1.8L3 10Z"/><path d="M3 10 2 6m19 4 1-4"/></svg></div><h3>Sunglasses</h3><p>HD polarized sunglasses for glare-free, sharp vision outdoors, plus everyday fashion sunglasses.</p><p style="margin-top:10px"><a href="assets/collections.html?cat=sunglasses" style="font-weight:700;color:var(--blue);text-decoration:none">Browse sunglasses →</a></p></article>
+        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.4"/></svg></div><h3>Contact Lenses</h3><p>Contact lenses with guidance on fitting and care — a comfortable, glasses-free option when you want it.</p><p style="margin-top:10px"><a href="assets/eye-care-kit.html" style="font-weight:700;color:var(--blue);text-decoration:none">Lens care guide →</a></p></article>
+        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg></div><h3>Prescription Glasses Made In-Store</h3><p>Bring your prescription or get checked here — we make glasses to the prescribed power with the right fit.</p><p style="margin-top:10px"><a href="assets/glasses-types.html" style="font-weight:700;color:var(--blue);text-decoration:none">Compare lens types →</a></p></article>
+        <article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-9.3-9A5.4 5.4 0 0 1 12 6.6 5.4 5.4 0 0 1 21.3 12C19.5 16.4 12 21 12 21Z"/></svg></div><h3>Kids Eyewear</h3><p>Colourful, comfortable and durable frames for kids — including flexible styles that stand up to everyday play.</p><p style="margin-top:10px"><a href="assets/collections.html?gender=kids" style="font-weight:700;color:var(--blue);text-decoration:none">Shop kids frames →</a></p></article>
       </div>
-      <div class="nepali" style="margin-top:16px">हरेक दिन विशेषज्ञ डाक्टरद्वारा आँखा जाँच गरिन्छ र पावर अनुसारको चस्मा बनाइन्छ। &nbsp;·&nbsp; Eyes are checked every day by a specialist doctor and glasses are made to your prescribed power.</div>
     </div>
   </section>
 
-  <!-- COLLECTION / SHOP CATALOG -->
-  <section class="section band" id="collection">
-    <div class="container">
-      <div class="sec-head"><div class="kicker">Shop Collection</div><h2>Glasses, lenses &amp; <em>more — with prices</em></h2><p>Browse the full range below. Filter by who it&rsquo;s for, by type, and by price — then tap <strong>Enquire on WhatsApp</strong> on any item to check availability and order. All prices in NPR.</p></div>
-
-      <div class="shop-controls">
-        <div class="filter-group">
-          <span class="filter-label" id="genderLabel">Shop for</span>
-          <div class="filters" role="group" aria-labelledby="genderLabel" data-group="gender">
-            <button class="filter-btn active" data-value="all" type="button">All</button>
-            <button class="filter-btn" data-value="men" type="button">Men</button>
-            <button class="filter-btn" data-value="women" type="button">Women</button>
-            <button class="filter-btn" data-value="kids" type="button">Kids</button>
-            <button class="filter-btn" data-value="unisex" type="button">Unisex</button>
-          </div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label" id="categoryLabel">Category</span>
-          <div class="filters" role="group" aria-labelledby="categoryLabel" data-group="category">
-            <button class="filter-btn active" data-value="all" type="button">All</button>
-            <button class="filter-btn" data-value="frames" type="button">Frames</button>
-            <button class="filter-btn" data-value="sunglasses" type="button">Sunglasses</button>
-            <button class="filter-btn" data-value="lenses" type="button">Lenses</button>
-            <button class="filter-btn" data-value="accessories" type="button">Accessories</button>
-          </div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label" id="priceLabel">Price</span>
-          <div class="filters" role="group" aria-labelledby="priceLabel" data-group="price">
-            <button class="filter-btn active" data-value="all" type="button">All Prices</button>
-            <button class="filter-btn" data-value="under2000" type="button">Under NPR 2,000</button>
-            <button class="filter-btn" data-value="2000-4000" type="button">NPR 2,000–4,000</button>
-            <button class="filter-btn" data-value="4000-6000" type="button">NPR 4,000–6,000</button>
-            <button class="filter-btn" data-value="above6000" type="button">Above NPR 6,000</button>
-          </div>
-        </div>
-        <div class="shop-controls-row">
-          <p class="results-count" id="resultsCount" aria-live="polite">Showing <span>18</span> products</p>
-          <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-            <button class="clear-btn" id="clearFilters" type="button" hidden>Clear all filters</button>
-            <div class="sort-wrap">
-              <label for="sortSelect">Sort by</label>
-              <select id="sortSelect">
-                <option value="featured" selected>Featured</option>
-                <option value="low-high">Price: Low to High</option>
-                <option value="high-low">Price: High to Low</option>
-                <option value="name">Name A–Z</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="collection" id="collectionGrid">
-        <article class="product" data-category="frames" data-gender="unisex" data-price="4500" data-name="Aviator Classic">
-          <img src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=600&q=80" alt="Aviator Classic metal frame eyeglasses" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Frames</span><span class="tag tag-gender">Unisex</span><span class="tag tag-sale">Sale</span></div><h3>Aviator Classic</h3><p>Timeless aviator, premium titanium</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 4,500</span><s class="was-price">NPR 5,500</s></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Aviator%20Classic%20(NPR%204%2C500).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="frames" data-gender="men" data-price="5200" data-name="Wayfarer Premium">
-          <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&q=80" alt="Wayfarer Premium acetate frame glasses for men" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Frames</span><span class="tag tag-gender">Men</span></div><h3>Wayfarer Premium</h3><p>Iconic wayfarer, acetate</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 5,200</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Wayfarer%20Premium%20(NPR%205%2C200).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="sunglasses" data-gender="men" data-price="6800" data-name="Polarized Sport">
-          <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80" alt="Polarized Sport sunglasses for men" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Sunglasses</span><span class="tag tag-gender">Men</span><span class="tag tag-sale">Sale</span></div><h3>Polarized Sport</h3><p>Polarized, UV400</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 6,800</span><s class="was-price">NPR 8,000</s></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Polarized%20Sport%20(NPR%206%2C800).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="frames" data-gender="women" data-price="3800" data-name="Round Vintage">
-          <img src="https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=600&q=80" alt="Round Vintage thin metal frame glasses for women" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Frames</span><span class="tag tag-gender">Women</span></div><h3>Round Vintage</h3><p>Retro round, thin metal</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 3,800</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Round%20Vintage%20(NPR%203%2C800).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="frames" data-gender="women" data-price="4200" data-name="Cat Eye Luxe">
-          <img src="https://images.unsplash.com/photo-1508296695146-257a814070b4?w=600&q=80" alt="Cat Eye Luxe acetate frame glasses for women" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Frames</span><span class="tag tag-gender">Women</span></div><h3>Cat Eye Luxe</h3><p>Elegant cat-eye, acetate</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 4,200</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Cat%20Eye%20Luxe%20(NPR%204%2C200).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="lenses" data-gender="unisex" data-price="2500" data-name="Blue Light Blocker">
-          <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=600&q=80" alt="Blue Light Blocker glasses for screen use" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Lenses</span><span class="tag tag-gender">Unisex</span></div><h3>Blue Light Blocker</h3><p>Screen protection, anti-reflective</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 2,500</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Blue%20Light%20Blocker%20(NPR%202%2C500).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="lenses" data-gender="unisex" data-price="8500" data-name="Progressive Lens Pack">
-          <img src="https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=600&q=80" alt="Progressive Lens Pack all-distance lenses" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Lenses</span><span class="tag tag-gender">Unisex</span><span class="tag tag-sale">Sale</span></div><h3>Progressive Lens Pack</h3><p>All-distance progressive</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 8,500</span><s class="was-price">NPR 10,000</s></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Progressive%20Lens%20Pack%20(NPR%208%2C500).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="accessories" data-gender="unisex" data-price="800" data-name="Leather Case Premium">
-          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Leather Case Premium genuine leather glasses case" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Accessories</span><span class="tag tag-gender">Unisex</span></div><h3>Leather Case Premium</h3><p>Genuine leather case</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 800</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Leather%20Case%20Premium%20(NPR%20800).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="accessories" data-gender="unisex" data-price="350" data-name="Cleaning Kit Pro">
-          <img src="https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?w=600&q=80" alt="Cleaning Kit Pro microfiber cloth and lens solution" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Accessories</span><span class="tag tag-gender">Unisex</span></div><h3>Cleaning Kit Pro</h3><p>Microfiber + solution kit</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 350</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Cleaning%20Kit%20Pro%20(NPR%20350).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="sunglasses" data-gender="unisex" data-price="5800" data-name="Clubmaster Classic">
-          <img src="https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&q=80" alt="Clubmaster Classic browline sunglasses" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Sunglasses</span><span class="tag tag-gender">Unisex</span></div><h3>Clubmaster Classic</h3><p>Browline, metal/acetate</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 5,800</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Clubmaster%20Classic%20(NPR%205%2C800).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="frames" data-gender="men" data-price="7200" data-name="Titanium Flex">
-          <img src="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&q=80" alt="Titanium Flex ultra-light frame glasses for men" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Frames</span><span class="tag tag-gender">Men</span></div><h3>Titanium Flex</h3><p>Ultra-light titanium flex</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 7,200</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Titanium%20Flex%20(NPR%207%2C200).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="sunglasses" data-gender="women" data-price="4800" data-name="Oversized Square">
-          <img src="https://images.unsplash.com/photo-1614715838608-dd527c46231d?w=600&q=80" alt="Oversized Square bold sunglasses for women" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Sunglasses</span><span class="tag tag-gender">Women</span></div><h3>Oversized Square</h3><p>Bold oversized, UV400</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 4,800</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Oversized%20Square%20(NPR%204%2C800).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="frames" data-gender="kids" data-price="1800" data-name="Kids Colorful">
-          <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=600&q=80" alt="Kids Colorful durable flexible frames for children" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Frames</span><span class="tag tag-gender">Kids</span></div><h3>Kids Colorful</h3><p>Durable flexible kids frames</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 1,800</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Kids%20Colorful%20(NPR%201%2C800).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="lenses" data-gender="unisex" data-price="1500" data-name="Single Vision Lens">
-          <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=600&q=80" alt="Single Vision Lens scratch-resistant lenses" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Lenses</span><span class="tag tag-gender">Unisex</span></div><h3>Single Vision Lens</h3><p>Scratch-resistant single vision</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 1,500</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Single%20Vision%20Lens%20(NPR%201%2C500).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="lenses" data-gender="unisex" data-price="3500" data-name="Bifocal Lens Premium">
-          <img src="https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=600&q=80" alt="Bifocal Lens Premium near and far lenses" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Lenses</span><span class="tag tag-gender">Unisex</span></div><h3>Bifocal Lens Premium</h3><p>Near + far bifocal</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 3,500</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Bifocal%20Lens%20Premium%20(NPR%203%2C500).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="lenses" data-gender="unisex" data-price="6500" data-name="Progressive Varifocal">
-          <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=600&q=80" alt="Progressive Varifocal seamless progressive lenses" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Lenses</span><span class="tag tag-gender">Unisex</span><span class="tag tag-sale">Sale</span></div><h3>Progressive Varifocal</h3><p>Seamless progressive, multi-coat</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 6,500</span><s class="was-price">NPR 7,500</s></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Progressive%20Varifocal%20(NPR%206%2C500).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="lenses" data-gender="unisex" data-price="4500" data-name="Photochromic Lens">
-          <img src="https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=600&q=80" alt="Photochromic Lens that darkens outdoors" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Lenses</span><span class="tag tag-gender">Unisex</span></div><h3>Photochromic Lens</h3><p>Darkens outdoors, UV protection</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 4,500</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Photochromic%20Lens%20(NPR%204%2C500).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-
-        <article class="product" data-category="lenses" data-gender="unisex" data-price="5500" data-name="High Index Thin Lens">
-          <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=600&q=80" alt="High Index Thin Lens ultra-thin lenses for high power" loading="lazy"/>
-          <div class="product-body"><div class="product-tags"><span class="tag">Lenses</span><span class="tag tag-gender">Unisex</span></div><h3>High Index Thin Lens</h3><p>Ultra-thin for high power</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 5,500</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20High%20Index%20Thin%20Lens%20(NPR%205%2C500).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
-        </article>
-      </div>
-
-      <div class="empty-state" id="emptyState" hidden>
-        <h3>No products match those filters</h3>
-        <p>Try a different combination — or tell us what you&rsquo;re looking for and we&rsquo;ll help you find it in store.</p>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <a class="btn btn-wa" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20looking%20for%20glasses.%20Can%20you%20help%20me%20find%20the%20right%20pair%3F" target="_blank" rel="noopener">💬 Ask on WhatsApp</a>
-          <button class="btn btn-outline" id="emptyClear" type="button">Show All Products</button>
-        </div>
-      </div>
-
-      <p style="color:var(--muted);font-size:14px;margin-top:14px">Stock changes often — message us on WhatsApp to confirm availability before you visit. Delivery available across Bhaktapur, Lalitpur &amp; Kathmandu. Frames can be fitted with your prescription in store.</p>
-    </div>
-  </section>
-
-  <!-- EYE-TEST CTA BANNER -->
+  <!-- EYE-TEST TEASER BANNER -->
   <section class="section" style="padding-top:8px;padding-bottom:8px">
     <div class="container">
       <div class="cta-banner">
@@ -535,41 +487,42 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
           <h2>Get Your Eyes Tested</h2>
           <p>A full eye checkup by a specialist doctor — every day, in two sessions. Walk in during exam hours, or book your slot in seconds on WhatsApp.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+            <a class="btn btn-white" href="assets/checkup.html">Checkup Page &amp; Booking →</a>
             <a class="btn btn-wa" href="https://wa.me/9779701926426?text=Hello%20Opticart%2C%20I%20want%20to%20book%20an%20eye%20exam." target="_blank" rel="noopener">💬 Book on WhatsApp</a>
-            <a class="btn btn-white" href="tel:015925035">Call 01-5925035</a>
           </div>
         </div>
         <div class="cta-times">
           <b>Daily exam hours</b>
           <div class="big">8 AM – 1 PM<br/>5 PM – 7 PM</div>
-          <p>By specialist doctor, every day of the week. Store open longer — see hours below.</p>
+          <p>By specialist doctor, every day of the week. Store open longer — see the Checkup page for full hours.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EYE TEST DETAILS -->
-  <section class="section" id="eye-test">
+  <!-- FEATURED PRODUCTS TEASER -->
+  <section class="section">
     <div class="container">
-      <div class="sec-head"><div class="kicker">How It Works</div><h2>Checked by a specialist, <em>every day</em></h2><p>Store hours and doctor hours are different — here's both, clearly, so you can plan your visit.</p></div>
-      <div class="grid2">
-        <div>
-          <img src="assets/eye-exam.jpg" alt="Eye specialist examining a patient's eye with charts in the background" style="border-radius:22px;width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line)"/>
-          <div class="steps">
-            <div class="step"><n>01</n><b>Walk in or book</b><p>Call or WhatsApp — or just visit during exam hours.</p></div>
-            <div class="step"><n>02</n><b>Specialist checkup</b><p>Full eye examination by the specialist doctor.</p></div>
-            <div class="step"><n>03</n><b>Choose your frame</b><p>Pick from the collection with fitting help.</p></div>
-            <div class="step"><n>04</n><b>Made to power</b><p>Glasses made to your prescribed power.</p></div>
-          </div>
-        </div>
-        <div style="display:grid;gap:16px;align-content:start">
-          <div class="hours-grid">
-            <div class="hours-card featured"><div style="font-size:12px;letter-spacing:.14em;font-weight:800">PROFESSIONAL EYE EXAMS</div><h3 style="margin:8px 0 4px;font-size:22px">Daily — Doctor Hours</h3><p style="font-size:22px;font-weight:800;color:#fff;line-height:1.3;margin:8px 0">8:00 AM – 1:00 PM<br/>5:00 PM – 7:00 PM</p><p>Every day. Come in these hours for a checkup with the specialist doctor.</p><a class="btn btn-white btn-sm" style="margin-top:12px" href="https://wa.me/9779701926426?text=Hello%20Opticart%2C%20I%20want%20to%20book%20an%20eye%20exam." target="_blank" rel="noopener">Book an Exam Slot</a></div>
-            <div class="hours-card"><div style="font-size:12px;letter-spacing:.14em;font-weight:800;color:var(--blue)">STORE HOURS</div><h3 style="margin:8px 0 4px;font-size:22px">Open Every Day</h3><ul><li><strong>Sun – Fri:</strong> 8:00 AM – 8:00 PM</li><li><strong>Saturday:</strong> 8:00 AM – 9:00 PM</li></ul><p style="margin-top:10px;color:var(--muted);font-size:14px">Browse frames, collect glasses &amp; get fittings any time the store is open — even outside doctor hours.</p><p id="liveStatus" style="margin-top:10px;font-weight:700;font-size:14px"></p></div>
-          </div>
-          <div class="card"><h3 style="margin-top:0">When should you get checked?</h3><p>If your vision feels blurry, you get headaches, your current glasses feel weak, or it's been a year since your last check — come in. Kids should be checked too, especially if they squint or sit very close to books/screens.</p></div>
-        </div>
+      <div class="sec-head"><div class="kicker">Featured</div><h2>Popular picks from the <em>collection</em></h2><p>A few favourites — see all 18 products with filters and prices on the Collections page.</p></div>
+      <div class="teaser-grid">
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=600&q=80" alt="Aviator Classic metal frame eyeglasses" loading="lazy"/>
+          <div class="product-body"><div class="product-tags"><span class="tag">Frames</span><span class="tag tag-gender">Unisex</span><span class="tag tag-sale">Sale</span></div><h3>Aviator Classic</h3><p>Timeless aviator, premium titanium</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 4,500</span><s class="was-price">NPR 5,500</s></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Aviator%20Classic%20(NPR%204%2C500).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80" alt="Polarized Sport sunglasses for men" loading="lazy"/>
+          <div class="product-body"><div class="product-tags"><span class="tag">Sunglasses</span><span class="tag tag-gender">Men</span><span class="tag tag-sale">Sale</span></div><h3>Polarized Sport</h3><p>Polarized, UV400</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 6,800</span><s class="was-price">NPR 8,000</s></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Polarized%20Sport%20(NPR%206%2C800).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1508296695146-257a814070b4?w=600&q=80" alt="Cat Eye Luxe acetate frame glasses for women" loading="lazy"/>
+          <div class="product-body"><div class="product-tags"><span class="tag">Frames</span><span class="tag tag-gender">Women</span></div><h3>Cat Eye Luxe</h3><p>Elegant cat-eye, acetate</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 4,200</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Cat%20Eye%20Luxe%20(NPR%204%2C200).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=600&q=80" alt="Kids Colorful durable flexible frames for children" loading="lazy"/>
+          <div class="product-body"><div class="product-tags"><span class="tag">Frames</span><span class="tag tag-gender">Kids</span></div><h3>Kids Colorful</h3><p>Durable flexible kids frames</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 1,800</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Kids%20Colorful%20(NPR%201%2C800).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
+        </article>
       </div>
+      <div style="text-align:center;margin-top:22px"><a class="btn btn-blue" href="assets/collections.html">View Full Collection — 18 Products →</a></div>
     </div>
   </section>
 
@@ -584,7 +537,7 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
   </div>
 
   <!-- WHY CHOOSE -->
-  <section class="section" id="why">
+  <section class="section">
     <div class="container">
       <div class="sec-head"><div class="kicker">Why Opticart</div><h2>Why choose <em>Opticart?</em></h2><p>The reasons our Google reviewers and regulars give — in their words, not ours.</p></div>
       <div class="why-grid">
@@ -599,7 +552,7 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
   </section>
 
   <!-- REVIEWS -->
-  <section class="section band" id="reviews">
+  <section class="section band">
     <div class="container">
       <div class="sec-head"><div class="kicker">Google Reviews</div><h2>4.9 stars from <em>your neighbours</em></h2><p>102 Google reviews — 96 of them five-star. People mention the eye checkup, fair &amp; affordable pricing, stylish frames, quality eyewear, wide variety, the right prescription, and a friendly environment.</p></div>
       <div class="testi">
@@ -610,24 +563,8 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
     </div>
   </section>
 
-  <!-- BOOKING -->
+  <!-- VISIT / CONTACT -->
   <section class="section" style="padding-top:40px">
-    <div class="container">
-      <div class="booking">
-        <div><div class="kicker">Book in 30 seconds</div><h2>Message us your preferred time</h2><p>Choose a service and a time that suits you — we'll open WhatsApp with your message ready to send to <strong style="color:var(--ink)">+977 970-1926426</strong>. No form is stored anywhere.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><span class="pill">Exam: 8 AM–1 PM</span><span class="pill">Exam: 5 PM–7 PM</span><span class="pill">Store open daily</span></div></div>
-        <form class="form" id="bookForm">
-          <div><label for="bname">Your name</label><input id="bname" type="text" placeholder="e.g. Sita Sharma" autocomplete="name"/></div>
-          <div><label for="bservice">Service</label><select id="bservice"><option>Eye checkup by specialist doctor</option><option>New spectacles / frames</option><option>Sunglasses</option><option>Contact lenses</option><option>Children's frames</option><option>Glasses made to my prescription</option><option>General enquiry</option></select></div>
-          <div><label for="btime">Preferred time</label><select id="btime"><option>Today — morning exam (8 AM – 1 PM)</option><option>Today — evening exam (5 PM – 7 PM)</option><option>Tomorrow — morning exam (8 AM – 1 PM)</option><option>Tomorrow — evening exam (5 PM – 7 PM)</option><option>Just visiting the store (8 AM – 8 PM)</option></select></div>
-          <button type="submit" class="btn btn-wa" style="width:100%;margin-top:6px">💬 Continue to WhatsApp →</button>
-          <p style="font-size:13px;color:var(--muted);margin:0">Prefer to talk? <a href="tel:015925035" style="color:var(--blue-dark);font-weight:700">Call 01-5925035</a> or <a href="tel:+9779701926426" style="color:var(--blue-dark);font-weight:700">970-1926426</a></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- VISIT -->
-  <section class="section band" id="visit" style="padding-top:40px">
     <div class="container">
       <div class="sec-head"><div class="kicker">Visit Us</div><h2>Find us in <em>Madhyapur Thimi</em></h2><p>In the Sabaiko Live Bakery building on Thimi–Biruwa Road — easy to find, and easy to plan around hospital, college or futsal trips nearby.</p></div>
       <div class="visit">
@@ -645,7 +582,7 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
           <div class="card"><h3 style="margin-top:0">Follow Opticart</h3><p style="margin-bottom:14px">New frames, offers and styles — 519 followers on Facebook and growing.</p><div style="display:grid;gap:8px"><a class="btn btn-outline" href="https://www.facebook.com/people/Opticart/61572672250854/" target="_blank" rel="noopener">f &nbsp; Facebook — Opticart</a><a class="btn btn-outline" href="https://instagram.com/opticartnepal" target="_blank" rel="noopener">◎ &nbsp; Instagram — @opticartnepal</a><a class="btn btn-wa" href="https://wa.me/9779701926426" target="_blank" rel="noopener">💬 WhatsApp — 970-1926426</a></div></div>
           <div class="faq">
             <details><summary>Do you make glasses to my prescription? <span>+</span></summary><p>Yes. Get checked here by the specialist doctor, or bring your prescription — we make spectacles exactly to the prescribed power.</p></details>
-            <details><summary>When can I get an eye exam? <span>+</span></summary><p>Every day, 8:00 AM–1:00 PM and 5:00 PM–7:00 PM. The store itself is open longer: Sun–Fri 8 AM–8 PM, Sat 8 AM–9 PM.</p></details>
+            <details><summary>When can I get an eye exam? <span>+</span></summary><p>Every day, 8:00 AM–1:00 PM and 5:00 PM–7:00 PM. The store itself is open longer: Sun–Fri 8 AM–8 PM, Sat 8 AM–9 PM. See the <a href="assets/checkup.html" style="color:var(--blue-dark);font-weight:700">Checkup page</a>.</p></details>
             <details><summary>Do you deliver? <span>+</span></summary><p>Yes, delivery is available. We serve Bhaktapur, Lalitpur and Kathmandu — message us on WhatsApp to arrange it.</p></details>
             <details><summary>Do you have frames for children? <span>+</span></summary><p>Yes — colourful children's frames, including durable flexible styles. Bring your child in during exam hours for a checkup and fitting.</p></details>
           </div>
@@ -658,7 +595,7 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
 <footer>
   <div class="container footer-grid">
     <div><div style="display:flex;gap:10px;align-items:center;margin-bottom:10px"><span class="logo-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="7" cy="14" r="3.2"/><circle cx="17" cy="14" r="3.2"/><path d="M10.2 14h3.6M3.8 14 2 9m20 5 1.8-5"/></svg></span><b style="font-size:20px">OPTICART</b></div><p style="color:var(--muted);font-size:14.5px;max-width:380px;margin:0">Clarity in Every Blink. Providing quality eyewear and expert eyecare services in Bhaktapur. Women-owned eyecare center.</p><p style="margin-top:12px"><span class="stars">★★★★★</span> <strong>4.9</strong> <span style="color:var(--muted)">· 102 Google reviews</span></p></div>
-    <div><b>Quick links</b><ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px"><li><a href="#categories">Shop by Category</a></li><li><a href="#services">Services</a></li><li><a href="#collection">Frames Collection</a></li><li><a href="#eye-test">Eye Test &amp; Hours</a></li><li><a href="#visit">Visit &amp; Directions</a></li></ul></div>
+    <div><b>Pages</b><ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px"><li><a href="index.html">Home</a></li><li><a href="assets/checkup.html">Checkup</a></li><li><a href="assets/collections.html">Collections</a></li><li><a href="assets/glasses-types.html">Glasses Types</a></li><li><a href="assets/eye-care-kit.html">Eye Care Kit</a></li><li><a href="assets/about.html">About Us</a></li></ul></div>
     <div><b>Contact</b><ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px;color:var(--muted);font-size:14.5px"><li>Dakshin Barahi, Dadhikot-4, Madhyapur Thimi, Bhaktapur</li><li><a href="tel:015925035">01-5925035</a> · <a href="tel:+9779701926426">970-1926426</a></li><li><a href="https://instagram.com/opticartnepal" target="_blank" rel="noopener">@opticartnepal on Instagram</a></li><li>Open every day · Exams 8–1 &amp; 5–7</li></ul></div>
   </div>
   <div class="container" style="margin-top:24px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:var(--muted);font-size:13px"><span>© Opticart, Bhaktapur. All rights reserved.</span><span>Dakshin Barahi · Madhyapur Thimi · Bhaktapur, Nepal</span></div>
@@ -686,86 +623,10 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
     var live=document.getElementById('liveStatus'); if(live) live.textContent = storeOpen ? '● Right now: '+(inExam?'Store open & eye exams running':'Store open (next exam session 5–7 PM if morning passed)') : '○ Right now: Closed — opens 8:00 AM';
   }catch(e){}
 })();
-// Shop catalog — combined gender + category + price filters, sort & live count
-var waBase='https://wa.me/9779701926426?text=';
-(function(){
-  var grid=document.getElementById('collectionGrid');
-  if(!grid) return;
-  var cards=Array.prototype.slice.call(grid.querySelectorAll('.product'));
-  var total=cards.length;
-  var state={gender:'all',category:'all',price:'all',sort:'featured'};
-  cards.forEach(function(c,i){ c.setAttribute('data-order', i); });
 
-  function priceMatch(p, f){
-    if(f==='all') return true;
-    if(f==='under2000') return p<2000;
-    if(f==='2000-4000') return p>=2000 && p<=4000;
-    if(f==='4000-6000') return p>4000 && p<=6000;
-    if(f==='above6000') return p>6000;
-    return true;
-  }
-  function setActive(group, value){
-    document.querySelectorAll('.filters[data-group="'+group+'"] .filter-btn').forEach(function(b){
-      b.classList.toggle('active', b.getAttribute('data-value')===value);
-    });
-  }
-  function apply(){
-    var visible=cards.filter(function(c){
-      var g=c.getAttribute('data-gender'), cat=c.getAttribute('data-category'), price=parseInt(c.getAttribute('data-price'),10);
-      var okG = state.gender==='all' || g===state.gender;
-      var okC = state.category==='all' || cat===state.category;
-      var okP = priceMatch(price, state.price);
-      return okG && okC && okP;
-    });
-    var ordered=visible.slice();
-    if(state.sort==='low-high') ordered.sort(function(a,b){ return parseInt(a.getAttribute('data-price'),10)-parseInt(b.getAttribute('data-price'),10); });
-    else if(state.sort==='high-low') ordered.sort(function(a,b){ return parseInt(b.getAttribute('data-price'),10)-parseInt(a.getAttribute('data-price'),10); });
-    else if(state.sort==='name') ordered.sort(function(a,b){ return (a.getAttribute('data-name')||'').localeCompare(b.getAttribute('data-name')||''); });
-    else ordered.sort(function(a,b){ return parseInt(a.getAttribute('data-order'),10)-parseInt(b.getAttribute('data-order'),10); });
-    cards.forEach(function(c){ c.style.display='none'; });
-    ordered.forEach(function(c){ c.style.display=''; grid.appendChild(c); });
-    var rc=document.getElementById('resultsCount');
-    if(rc) rc.innerHTML='Showing <span>'+visible.length+'</span> of '+total+' products';
-    var es=document.getElementById('emptyState');
-    if(es) es.hidden = visible.length!==0;
-    grid.style.display = visible.length===0 ? 'none' : '';
-    var anyFilter = state.gender!=='all'||state.category!=='all'||state.price!=='all';
-    var cb=document.getElementById('clearFilters');
-    if(cb) cb.hidden=!anyFilter;
-  }
-  document.querySelectorAll('.filters[data-group]').forEach(function(groupEl){
-    var group=groupEl.getAttribute('data-group');
-    groupEl.querySelectorAll('.filter-btn').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        state[group]=btn.getAttribute('data-value');
-        setActive(group, state[group]);
-        apply();
-      });
-    });
-  });
-  var sortSel=document.getElementById('sortSelect');
-  if(sortSel) sortSel.addEventListener('change',function(){ state.sort=sortSel.value; apply(); });
-  function clearAll(){
-    state.gender='all'; state.category='all'; state.price='all';
-    setActive('gender','all'); setActive('category','all'); setActive('price','all');
-    apply();
-  }
-  var clearBtn=document.getElementById('clearFilters'); if(clearBtn) clearBtn.addEventListener('click',clearAll);
-  var emptyBtn=document.getElementById('emptyClear'); if(emptyBtn) emptyBtn.addEventListener('click',clearAll);
-  // Category tiles preset the shop filters
-  document.querySelectorAll('[data-shop-category],[data-shop-gender]').forEach(function(tile){
-    tile.addEventListener('click',function(){
-      var cat=tile.getAttribute('data-shop-category'), gen=tile.getAttribute('data-shop-gender');
-      clearAll();
-      if(cat){ state.category=cat; setActive('category',cat); }
-      if(gen){ state.gender=gen; setActive('gender',gen); }
-      apply();
-    });
-  });
-  apply();
-})();
 // Booking -> WhatsApp
-document.getElementById('bookForm').addEventListener('submit',function(e){
+var bookFormEl=document.getElementById('bookForm');
+if(bookFormEl) bookFormEl.addEventListener('submit',function(e){
   e.preventDefault();
   var name=document.getElementById('bname').value.trim();
   var svc=document.getElementById('bservice').value;
@@ -773,6 +634,33 @@ document.getElementById('bookForm').addEventListener('submit',function(e){
   var msg='Hello Opticart, '+(name?('I am '+name+'. '):'')+'I want: '+svc+'. Preferred time: '+time+'.';
   window.open(waBase+encodeURIComponent(msg),'_blank');
 });
+
+// Mobile hamburger menu
+(function(){
+  var menu=document.getElementById('mobileMenu');
+  var backdrop=document.getElementById('menuBackdrop');
+  var openBtn=document.getElementById('menuBtn');
+  var closeBtn=document.getElementById('menuClose');
+  if(!menu||!openBtn) return;
+  function openMenu(){
+    menu.classList.add('open'); menu.setAttribute('aria-hidden','false');
+    backdrop.hidden=false; requestAnimationFrame(function(){ backdrop.classList.add('show'); });
+    document.body.classList.add('menu-open'); openBtn.setAttribute('aria-expanded','true');
+  }
+  function closeMenu(){
+    menu.classList.remove('open'); menu.setAttribute('aria-hidden','true');
+    backdrop.classList.remove('show');
+    setTimeout(function(){ backdrop.hidden=true; },260);
+    document.body.classList.remove('menu-open'); openBtn.setAttribute('aria-expanded','false');
+  }
+  openBtn.addEventListener('click',openMenu);
+  closeBtn.addEventListener('click',closeMenu);
+  backdrop.addEventListener('click',closeMenu);
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeMenu); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && menu.classList.contains('open')) closeMenu(); });
+  window.__closeMenu=closeMenu;
+})();
+
 </script>
 </body>
 </html>
