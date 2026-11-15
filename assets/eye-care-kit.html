@@ -325,6 +325,82 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
 @media(max-width:560px){.tb-hours{display:none}}
 @media(max-width:480px){.hero{padding-top:22px}.hero h1{margin:12px 0 10px}.rating-box{margin:12px 0}.hero-ctas{margin:14px 0 12px}}
 @media(max-width:900px){.hero-grid>div:first-child{display:flex;flex-direction:column;align-items:flex-start}.hero-ctas{order:4;align-self:stretch}.rating-box{order:5}.hero-meta{order:6}}
+
+/* === Phone-standard mobile + carousel + admin hooks (2026-11-15) === */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-size:16px}
+img,video{max-width:100%}
+.carousel-section{padding-top:8px}
+.carousel{position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.carousel-viewport{overflow:hidden}
+.carousel-track{display:flex;transition:transform .45s ease}
+.carousel-slide{min-width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:0;text-decoration:none;color:inherit}
+.carousel-slide .c-img{display:block;overflow:hidden}
+.carousel-slide .c-img img{width:100%;height:100%;min-height:320px;object-fit:cover;aspect-ratio:4/3}
+.carousel-slide .c-body{padding:28px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.carousel-slide .c-body h3{font-size:clamp(24px,3.4vw,34px);margin:2px 0 0;letter-spacing:-.02em;line-height:1.1}
+.carousel-slide .c-body p{color:var(--muted);margin:0;font-size:16px}
+.carousel-slide .c-price{font-size:24px;font-weight:800}
+.carousel-slide .c-price s{font-size:16px;color:var(--muted);font-weight:600;margin-left:8px}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow);cursor:pointer;font-size:22px;display:grid;place-items:center;z-index:3;color:var(--ink)}
+.carousel-btn.prev{left:12px}.carousel-btn.next{right:12px}
+.carousel-dots{display:flex;gap:8px;justify-content:center;padding:14px 10px 16px;background:#fff}
+.carousel-dots button{width:12px;height:12px;min-height:12px;border-radius:50%;border:none;background:#cbd8e4;cursor:pointer;padding:0}
+.carousel-dots button.active{background:var(--blue);width:28px;border-radius:999px}
+@media (prefers-reduced-motion: reduce){.carousel-track{transition:none}}
+@media(max-width:900px){
+  .container{width:100%;padding-left:16px;padding-right:16px}
+  .section{padding:36px 0}
+  .page-hero{padding:28px 0 4px}
+  .hero{padding:28px 0 24px}
+  .hero h1{font-size:40px}
+  .hero p.lead,.page-hero p.lead{font-size:17px}
+  .card p,.product p,.lens-card p,.why-card p{font-size:15.5px}
+  input,select,textarea{font-size:16px !important;min-height:52px}
+  .btn{min-height:52px;font-size:16px}
+  .btn-sm{min-height:48px}
+  .hero-ctas .btn{flex:1 1 100%;width:100%}
+  .cta-banner .btn{width:100%}
+  .filter-btn{min-height:48px;padding:12px 18px;font-size:15px}
+  .filters{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .filters::-webkit-scrollbar{display:none}
+  .shop-controls{padding:16px}
+  .product img{aspect-ratio:16/10}
+  .cat-tile img{aspect-ratio:16/10}
+  .carousel-slide{grid-template-columns:1fr}
+  .carousel-slide .c-img img{min-height:0;aspect-ratio:16/10}
+  .carousel-slide .c-body{padding:20px}
+  .carousel-slide .c-body .btn{width:100%}
+  .carousel-btn{width:44px;height:44px;top:32%}
+  .sticky-cta{left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));gap:8px;box-shadow:0 -8px 24px rgba(10,30,55,.10)}
+  .sticky-cta a{border-radius:14px;min-height:52px;font-size:15px}
+  footer{padding-bottom:110px}
+  .float-1,.float-2{max-width:calc(100% - 16px)}
+  .float-2{width:200px}
+  .mm-links a{min-height:56px}
+  .booking{padding:20px}
+  .cta-banner{padding:22px}
+  .hours-card,.lens-card,.card{padding:20px}
+  .steps{grid-template-columns:1fr}
+  .topbar-inner{gap:4px 12px}
+}
+@media(max-width:480px){
+  .stats-inner{grid-template-columns:1fr 1fr;gap:12px}
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .trust-item{gap:10px}
+}
+
+
+/* Carousel v2: one slide at a time (no off-screen clipped controls), 44px dot tap areas */
+.carousel-track{display:block;transition:none}
+.carousel-slide{display:none}
+.carousel-slide.active{display:grid;animation:ocFade .35s ease}
+@keyframes ocFade{from{opacity:.25}to{opacity:1}}
+.carousel-dots button{width:44px;height:44px;min-height:44px;border-radius:50%;background:transparent;display:grid;place-items:center;padding:0}
+.carousel-dots button::before{content:'';width:12px;height:12px;border-radius:999px;background:#cbd8e4;display:block}
+.carousel-dots button.active{background:transparent}
+.carousel-dots button.active::before{background:var(--blue);width:28px}
+
 </style>
 </head>
 <body>
@@ -332,11 +408,11 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
   <div class="container topbar-inner">
     <div class="grp">
       <span class="status-pill"><span class="dot" id="openDot"></span><span id="openText">Open every day</span></span>
-      <span class="tb-hours">🕐 Sun–Fri 8 AM–8 PM · Sat 8 AM–9 PM</span>
+      <span class="tb-hours" data-info="shopHours" data-prefix="🕐 ">🕐 Sun–Fri 8 AM–8 PM · Sat 8 AM–9 PM</span>
       <span><span class="stars">★★★★★</span> <strong>4.9</strong> · 102 Google reviews</span>
     </div>
     <div class="grp">
-      <a href="tel:015925035">☎ 01-5925035</a>
+      <a href="tel:015925035" data-info="phone" data-prefix="☎ ">☎ 01-5925035</a>
       <a href="https://wa.me/9779701926426" target="_blank" rel="noopener">WhatsApp 970-1926426</a>
     </div>
   </div>
@@ -393,7 +469,7 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
       <a href="https://wa.me/9779701926426?text=Hello%20Opticart%2C%20I%20want%20to%20book%20an%20eye%20checkup." target="_blank" rel="noopener" style="background:var(--wa);color:#fff">💬 WhatsApp</a>
       <a href="https://maps.app.goo.gl/D6nKyBReMZUmKQRM9?g_st=ac" target="_blank" rel="noopener" style="background:var(--ink);color:#fff">📍 Directions</a>
     </div>
-    <p>Open every day · Exams 8 AM–1 PM &amp; 5 PM–7 PM<br/>01-5925035 · 970-1926426</p>
+    <p>Open every day · Eye exams daily 5 PM–7 PM<br/>01-5925035 · 970-1926426</p>
   </div>
 </nav>
 
@@ -411,11 +487,11 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
       <div class="sec-head"><div class="kicker">Care Products</div><h2>The kit your glasses <em>deserve</em></h2></div>
       <div class="kit-grid">
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Leather Case Premium genuine leather glasses case" loading="lazy"/>
+          <img src="products/case.jpg" alt="Leather Case Premium genuine leather glasses case" loading="lazy"/>
           <div class="product-body"><div class="product-tags"><span class="tag">Accessories</span><span class="tag tag-gender">Unisex</span></div><h3>Leather Case Premium</h3><p>Genuine leather case — hard-wearing protection so your glasses survive bags, pockets and dashboards without scratches or bent arms.</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 800</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Leather%20Case%20Premium%20(NPR%20800).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?w=600&q=80" alt="Cleaning Kit Pro microfiber cloth and lens solution" loading="lazy"/>
+          <img src="products/cleaning.jpg" alt="Cleaning Kit Pro microfiber cloth and lens solution" loading="lazy"/>
           <div class="product-body"><div class="product-tags"><span class="tag">Accessories</span><span class="tag tag-gender">Unisex</span></div><h3>Cleaning Kit Pro</h3><p>Microfiber cloth + lens cleaning solution — the safe way to clean lenses daily without scratching the coating.</p><div class="spacer"></div><div class="price-row"><div class="price-line"><span class="price">NPR 350</span></div><a class="btn btn-blue btn-sm" style="width:100%" href="https://wa.me/9779701926426?text=Hi%20Opticart%2C%20I%27m%20interested%20in%20Cleaning%20Kit%20Pro%20(NPR%20350).%20Is%20it%20available%3F" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div>
         </article>
       </div>
@@ -474,8 +550,8 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
 <footer>
   <div class="container footer-grid">
     <div><div style="display:flex;gap:10px;align-items:center;margin-bottom:10px"><span class="logo-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="7" cy="14" r="3.2"/><circle cx="17" cy="14" r="3.2"/><path d="M10.2 14h3.6M3.8 14 2 9m20 5 1.8-5"/></svg></span><b style="font-size:20px">OPTICART</b></div><p style="color:var(--muted);font-size:14.5px;max-width:380px;margin:0">Clarity in Every Blink. Providing quality eyewear and expert eyecare services in Bhaktapur. Women-owned eyecare center.</p><p style="margin-top:12px"><span class="stars">★★★★★</span> <strong>4.9</strong> <span style="color:var(--muted)">· 102 Google reviews</span></p></div>
-    <div><b>Pages</b><ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px"><li><a href="../index.html">Home</a></li><li><a href="checkup.html">Checkup</a></li><li><a href="collections.html">Collections</a></li><li><a href="glasses-types.html">Glasses Types</a></li><li><a href="eye-care-kit.html">Eye Care Kit</a></li><li><a href="about.html">About Us</a></li></ul></div>
-    <div><b>Contact</b><ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px;color:var(--muted);font-size:14.5px"><li>Dakshin Barahi, Dadhikot-4, Madhyapur Thimi, Bhaktapur</li><li><a href="tel:015925035">01-5925035</a> · <a href="tel:+9779701926426">970-1926426</a></li><li><a href="https://instagram.com/opticartnepal" target="_blank" rel="noopener">@opticartnepal on Instagram</a></li><li>Open every day · Exams 8–1 &amp; 5–7</li></ul></div>
+    <div><b>Pages</b><ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px"><li><a href="../index.html">Home</a></li><li><a href="checkup.html">Checkup</a></li><li><a href="collections.html">Collections</a></li><li><a href="glasses-types.html">Glasses Types</a></li><li><a href="eye-care-kit.html">Eye Care Kit</a></li><li><a href="about.html">About Us</a></li><li><a href="admin.html">Admin</a></li></ul></div>
+    <div><b>Contact</b><ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px;color:var(--muted);font-size:14.5px"><li data-info="address">Dakshin Barahi, Dadhikot-4, Madhyapur Thimi, Bhaktapur, Nepal</li><li><a href="tel:015925035">01-5925035</a> · <a href="tel:+9779701926426">970-1926426</a></li><li><a href="https://instagram.com/opticartnepal" target="_blank" rel="noopener">@opticartnepal on Instagram</a></li><li data-info="examLine">Open every day · Eye exams daily 5–7 PM</li></ul></div>
   </div>
   <div class="container" style="margin-top:24px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:var(--muted);font-size:13px"><span>© Opticart, Bhaktapur. All rights reserved.</span><span>Dakshin Barahi · Madhyapur Thimi · Bhaktapur, Nepal</span></div>
 </footer>
@@ -487,6 +563,113 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
 </div>
 
 <script>
+/* Opticart shared data — defaults merged with Admin saves (localStorage opticart_admin_v1) */
+var OPTICART_KEY='opticart_admin_v1';
+var OPTICART_DEFAULTS={
+ products:[{"name": "Aviator Classic", "price": 4500, "was": 5500, "category": "frames", "gender": "unisex", "image": "products/aviator.jpg", "desc": "Timeless aviator, premium titanium"}, {"name": "Wayfarer Premium", "price": 5200, "was": null, "category": "frames", "gender": "men", "image": "products/wayfarer.jpg", "desc": "Iconic wayfarer, acetate"}, {"name": "Polarized Sport", "price": 6800, "was": 8000, "category": "sunglasses", "gender": "men", "image": "products/polarized.jpg", "desc": "Polarized, UV400"}, {"name": "Round Vintage", "price": 3800, "was": null, "category": "frames", "gender": "women", "image": "products/round.jpg", "desc": "Retro round, thin metal"}, {"name": "Cat Eye Luxe", "price": 4200, "was": null, "category": "frames", "gender": "women", "image": "products/cateye.jpg", "desc": "Elegant cat-eye, acetate"}, {"name": "Blue Light Blocker", "price": 2500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-blue.jpg", "desc": "Screen protection, anti-reflective"}, {"name": "Progressive Lens Pack", "price": 8500, "was": 10000, "category": "lenses", "gender": "unisex", "image": "products/lens-prog.jpg", "desc": "All-distance progressive"}, {"name": "Leather Case Premium", "price": 800, "was": null, "category": "accessories", "gender": "unisex", "image": "products/case.jpg", "desc": "Genuine leather case"}, {"name": "Cleaning Kit Pro", "price": 350, "was": null, "category": "accessories", "gender": "unisex", "image": "products/cleaning.jpg", "desc": "Microfiber + solution kit"}, {"name": "Clubmaster Classic", "price": 5800, "was": null, "category": "sunglasses", "gender": "unisex", "image": "products/clubmaster.jpg", "desc": "Browline, metal/acetate"}, {"name": "Titanium Flex", "price": 7200, "was": null, "category": "frames", "gender": "men", "image": "products/titanium.jpg", "desc": "Ultra-light titanium flex"}, {"name": "Oversized Square", "price": 4800, "was": null, "category": "sunglasses", "gender": "women", "image": "products/oversized.jpg", "desc": "Bold oversized, UV400"}, {"name": "Kids Colorful", "price": 1800, "was": null, "category": "frames", "gender": "kids", "image": "products/lens-blue.jpg", "desc": "Durable flexible kids frames"}, {"name": "Single Vision Lens", "price": 1500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-blue.jpg", "desc": "Scratch-resistant single vision"}, {"name": "Bifocal Lens Premium", "price": 3500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-prog.jpg", "desc": "Near + far bifocal"}, {"name": "Progressive Varifocal", "price": 6500, "was": 7500, "category": "lenses", "gender": "unisex", "image": "products/lens-blue.jpg", "desc": "Seamless progressive, multi-coat"}, {"name": "Photochromic Lens", "price": 4500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-prog.jpg", "desc": "Darkens outdoors, UV protection"}, {"name": "High Index Thin Lens", "price": 5500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-blue.jpg", "desc": "Ultra-thin for high power"}],
+ info:{phone:"01-5925035",whatsapp:"970-1926426",whatsappIntl:"9779701926426",address:"Dakshin Barahi, Dadhikot-4, Madhyapur Thimi, Bhaktapur, Nepal",shopHours:"Sun\u2013Fri 8 AM\u20138 PM \u00b7 Sat 8 AM\u20139 PM",examHours:"Daily 5 PM\u20137 PM"},
+ hero:{heading:"Clarity in every blink.",subtext:"Quality eyewear and expert eyecare in Bhaktapur \u2014 daily eye checkup by a specialist doctor, glasses made exactly to your prescription, and frames you'll love to wear.",image:"assets/hero-display.jpg"}
+};
+var OPTICART_SAVED=null;
+try{ var _raw=localStorage.getItem(OPTICART_KEY); if(_raw) OPTICART_SAVED=JSON.parse(_raw); }catch(e){}
+var OPTICART_DATA={
+ products:(OPTICART_SAVED&&OPTICART_SAVED.products&&OPTICART_SAVED.products.length)?OPTICART_SAVED.products:OPTICART_DEFAULTS.products,
+ info:Object.assign({},OPTICART_DEFAULTS.info,(OPTICART_SAVED&&OPTICART_SAVED.info)||{}),
+ hero:Object.assign({},OPTICART_DEFAULTS.hero,(OPTICART_SAVED&&OPTICART_SAVED.hero)||{})
+};
+function ocImg(src){ if(!src) return ''; if(/^(https?:)?\/\//.test(src)||src.indexOf('data:')===0) return src; if(src.indexOf('products/')>-1||src.indexOf('/')>-1) return src; return 'products/'+src; }
+function ocFmt(n){ return Number(n||0).toLocaleString('en-US'); }
+function ocEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function ocWa(p){ var intl=(OPTICART_DATA.info.whatsappIntl||'9779701926426').replace(/\D/g,''); return 'https://wa.me/'+intl+'?text='+encodeURIComponent("Hi Opticart, I'm interested in "+p.name+" (NPR "+ocFmt(p.price)+"). Is it available?"); }
+function ocCatLabel(c){ return c?c.charAt(0).toUpperCase()+c.slice(1):''; }
+function ocGenderLabel(g){ return g?g.charAt(0).toUpperCase()+g.slice(1):''; }
+function ocCard(p){
+ var sale=p.was&&Number(p.was)>Number(p.price);
+ return '<article class="product" data-category="'+ocEsc(p.category)+'" data-gender="'+ocEsc(p.gender)+'" data-price="'+Number(p.price||0)+'" data-name="'+ocEsc(p.name)+'">'
+ +'<img src="'+ocEsc(ocImg(p.image))+'" alt="'+ocEsc(p.name)+' '+ocEsc(p.desc||'')+'" loading="lazy"/>'
+ +'<div class="product-body"><div class="product-tags"><span class="tag">'+ocEsc(ocCatLabel(p.category))+'</span><span class="tag tag-gender">'+ocEsc(ocGenderLabel(p.gender))+'</span>'+(sale?'<span class="tag tag-sale">Sale</span>':'')+'</div>'
+ +'<h3>'+ocEsc(p.name)+'</h3><p>'+ocEsc(p.desc||'')+'</p><div class="spacer"></div>'
+ +'<div class="price-row"><div class="price-line"><span class="price">NPR '+ocFmt(p.price)+'</span>'+(sale?'<s class="was-price">NPR '+ocFmt(p.was)+'</s>':'')+'</div>'
+ +'<a class="btn btn-blue btn-sm" style="width:100%" href="'+ocWa(p)+'" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div></article>';
+}
+(function(){
+ var info=OPTICART_DATA.info;
+ document.querySelectorAll('[data-info]').forEach(function(el){
+   var k=el.getAttribute('data-info'); var pre=el.getAttribute('data-prefix')||''; var v='';
+   if(k==='phone') v=info.phone;
+   else if(k==='whatsapp') v=info.whatsapp;
+   else if(k==='address') v=info.address;
+   else if(k==='shopHours') v=info.shopHours;
+   else if(k==='examHours') v=info.examHours;
+   else if(k==='examLine') v='Open every day \u00b7 Eye exams '+String(info.examHours||'').replace(/^Daily\s*/i,'daily ');
+   if(v) el.textContent=pre+v;
+ });
+ if(OPTICART_SAVED){
+   var h=document.querySelector('[data-hero="heading"]'); if(h&&OPTICART_DATA.hero.heading&&OPTICART_DATA.hero.heading!==OPTICART_DEFAULTS.hero.heading) h.textContent=OPTICART_DATA.hero.heading;
+   var s=document.querySelector('[data-hero="subtext"]'); if(s&&OPTICART_DATA.hero.subtext&&OPTICART_DATA.hero.subtext!==OPTICART_DEFAULTS.hero.subtext) s.textContent=OPTICART_DATA.hero.subtext;
+   var im=document.querySelector('[data-hero="image"]'); if(im&&OPTICART_DATA.hero.image&&OPTICART_DATA.hero.image!==OPTICART_DEFAULTS.hero.image) im.src=OPTICART_DATA.hero.image;
+ }
+ var grid=document.getElementById('collectionGrid');
+ if(grid){ grid.innerHTML=OPTICART_DATA.products.map(ocCard).join(''); }
+ var feat=document.getElementById('featuredGrid');
+ if(feat){ feat.innerHTML=OPTICART_DATA.products.slice(0,4).map(ocCard).join(''); var vc=document.getElementById('viewCollectionBtn'); if(vc) vc.textContent='View Full Collection \u2014 '+OPTICART_DATA.products.length+' Products \u2192'; }
+ /* Glasses Types: update prices matched by name */
+ var lensMap={'Single Vision':'Single Vision Lens','Bifocal':'Bifocal Lens Premium','Photochromic':'Photochromic Lens','Blue Light Blocker':'Blue Light Blocker','High Index Thin':'High Index Thin Lens','Polarized Sunglasses':'Polarized Sport'};
+ document.querySelectorAll('.lens-card').forEach(function(card){
+   var h3=card.querySelector('h3'); if(!h3) return; var title=h3.textContent.trim();
+   var priceEl=card.querySelector('.price'); if(!priceEl) return;
+   if(title.indexOf('Progressive')>-1){
+     var a=OPTICART_DATA.products.filter(function(p){return p.name==='Progressive Varifocal';})[0];
+     var b=OPTICART_DATA.products.filter(function(p){return p.name==='Progressive Lens Pack';})[0];
+     if(a&&b) priceEl.textContent='NPR '+ocFmt(a.price)+' \u2013 '+ocFmt(b.price); else if(a) priceEl.textContent='NPR '+ocFmt(a.price);
+     return;
+   }
+   var target=lensMap[title]; if(!target) return;
+   var prod=OPTICART_DATA.products.filter(function(p){return p.name===target;})[0];
+   if(prod){ priceEl.textContent='NPR '+ocFmt(prod.price); var wasEl=card.querySelector('.was-price'); if(wasEl){ if(prod.was&&Number(prod.was)>Number(prod.price)) wasEl.textContent='NPR '+ocFmt(prod.was); else wasEl.remove(); } var waA=card.querySelector('.price-row a'); if(waA) waA.href=ocWa(prod); }
+ });
+ /* Eye Care Kit: update matched products in place */
+ document.querySelectorAll('.kit-grid .product').forEach(function(card){
+   var h3=card.querySelector('h3'); if(!h3) return; var name=h3.textContent.trim();
+   var prod=OPTICART_DATA.products.filter(function(p){return p.name===name;})[0]; if(!prod) return;
+   var priceEl=card.querySelector('.price'); if(priceEl) priceEl.textContent='NPR '+ocFmt(prod.price);
+   var img=card.querySelector('img'); if(img&&prod.image) img.src=ocImg(prod.image);
+   var desc=card.querySelector('.product-body p'); if(desc&&prod.desc&&card.closest('.kit-grid')){ /* keep longer care descriptions on kit page */ }
+   var waA=card.querySelector('.price-row a'); if(waA) waA.href=ocWa(prod);
+ });
+ /* Homepage carousel */
+ var track=document.getElementById('carouselTrack');
+ if(track){
+   var slides=OPTICART_DATA.products.filter(function(p){return p.category==='frames'||p.category==='sunglasses';});
+   if(!slides.length) slides=OPTICART_DATA.products.slice(0,9);
+   track.innerHTML=slides.map(function(p){
+     var sale=p.was&&Number(p.was)>Number(p.price);
+     return '<div class="carousel-slide"><a class="c-img" href="collections.html" aria-label="View '+ocEsc(p.name)+' in Collections"><img src="'+ocEsc(p.image)+'" alt="'+ocEsc(p.name)+' \u2014 '+ocEsc(p.desc||'')+'"/></a>'
+     +'<div class="c-body"><div class="product-tags"><span class="tag">'+ocEsc(ocCatLabel(p.category))+'</span><span class="tag tag-gender">'+ocEsc(ocGenderLabel(p.gender))+'</span>'+(sale?'<span class="tag tag-sale">Sale</span>':'')+'</div>'
+     +'<h3><a href="collections.html" style="text-decoration:none">'+ocEsc(p.name)+'</a></h3><p>'+ocEsc(p.desc||'')+'</p>'
+     +'<div class="c-price">NPR '+ocFmt(p.price)+(sale?'<s>NPR '+ocFmt(p.was)+'</s>':'')+'</div>'
+     +'<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px"><a class="btn btn-blue" href="collections.html">View in Collections</a><a class="btn btn-outline" href="'+ocWa(p)+'" target="_blank" rel="noopener">Enquire on WhatsApp</a></div></div></div>';
+   }).join('');
+   var dots=document.getElementById('carouselDots');
+   if(dots) dots.innerHTML=slides.map(function(_,i){return '<button type="button" aria-label="Go to slide '+(i+1)+'" data-i="'+i+'"></button>';}).join('');
+   var idx=0,timer=null,wrap=document.getElementById('glassesCarousel');
+   function go(i){ idx=(i+slides.length)%slides.length; track.style.transform='translateX(-'+(idx*100)+'%)'; if(dots) dots.querySelectorAll('button').forEach(function(d,j){d.classList.toggle('active',j===idx);}); }
+   function start(){ stop(); timer=setInterval(function(){go(idx+1);},4000); }
+   function stop(){ if(timer) clearInterval(timer); timer=null; }
+   var prev=document.getElementById('carouselPrev'),next=document.getElementById('carouselNext');
+   if(prev) prev.addEventListener('click',function(){go(idx-1);start();});
+   if(next) next.addEventListener('click',function(){go(idx+1);start();});
+   if(dots) dots.querySelectorAll('button').forEach(function(d){d.addEventListener('click',function(){go(Number(d.getAttribute('data-i')));start();});});
+   if(wrap){ wrap.addEventListener('mouseenter',stop); wrap.addEventListener('mouseleave',start); wrap.addEventListener('touchstart',stop,{passive:true}); wrap.addEventListener('touchend',function(){setTimeout(start,2500);},{passive:true});
+     var sx=0; wrap.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX;},{passive:true});
+     wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) go(idx+(dx<0?1:-1));},{passive:true});
+   }
+   go(0); start();
+ }
+})();
+</script>
+
+<script>
 // Live open status in Nepal time (Asia/Kathmandu, UTC+5:45)
 (function(){
   try{
@@ -495,11 +678,11 @@ footer{padding:40px 0 90px;border-top:1px solid var(--line);background:var(--ban
     var mins = now.getHours()*60+now.getMinutes();
     var close = (day===6)? 21*60 : 20*60;
     var storeOpen = mins>=8*60 && mins<close;
-    var inExam = (mins>=8*60 && mins<13*60) || (mins>=17*60 && mins<19*60);
+    var inExam = (mins>=17*60 && mins<19*60);
     var txt = storeOpen ? (inExam ? 'Open now · Doctor in for eye exams' : 'Open now · Store open') : 'Closed now · Opens 8:00 AM';
     var el=document.getElementById('openText'); if(el) el.textContent=txt + ' · Nepal time';
     var dot=document.getElementById('openDot'); if(dot && !storeOpen) dot.classList.add('closed');
-    var live=document.getElementById('liveStatus'); if(live) live.textContent = storeOpen ? '● Right now: '+(inExam?'Store open & eye exams running':'Store open (next exam session 5–7 PM if morning passed)') : '○ Right now: Closed — opens 8:00 AM';
+    var live=document.getElementById('liveStatus'); if(live) live.textContent = storeOpen ? '● Right now: '+(inExam?'Store open & eye exams running':'Store open · Eye exams today 5–7 PM') : '○ Right now: Closed — opens 8:00 AM';
   }catch(e){}
 })();
 
