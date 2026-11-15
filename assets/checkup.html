@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="color-scheme" content="light"/>
-<link rel="icon" href="data:,"/>
+<meta name="color-scheme" content="light dark"/>
+<script>(function(){try{if(localStorage.getItem('opticart_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="icon" type="image/png" href="logo-icon.png"/>
 <title>Eye Checkup — Opticart, Bhaktapur</title>
 <meta name="description" content="Opticart Eyecare Center in Madhyapur Thimi, Bhaktapur. Daily eye checkup by specialist doctor, spectacles, sunglasses, contact lenses & prescription glasses. Rated 4.9 on Google."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,12 +13,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#ffffff; --band:#f4f8fc; --band-blue:#eaf3fb; --card:#ffffff;
-  --ink:#16222e; --muted:#5a6b7a; --line:#e3ebf2;
-  --blue:#0b6bcb; --blue-dark:#084f96; --blue-soft:#e8f3fd;
-  --teal:#0e8a7b; --teal-soft:#e6f6f2;
-  --amber:#f5a623; --amber-soft:#fff6e0; --green:#22a35a; --wa:#1faa55;
-  --radius:18px; --shadow:0 10px 30px rgba(22,50,80,.08); --shadow-lg:0 20px 44px rgba(22,50,80,.12);
+  --bg:#ffffff; --band:#f3f8f2; --band-blue:#edf3fa; --card:#ffffff;
+  --ink:#152433; --muted:#54687a; --line:#dfe9e2;
+  --blue:#1F4E9C; --blue-dark:#173D7A; --blue-soft:#E7EFF9;
+  --green:#46984A; --green-dark:#35763A; --green-soft:#EAF4EA;
+  --teal:#3E8A43; --teal-soft:#EAF4EA;
+  --amber:#f5a623; --amber-soft:#fff6e0; --wa:#1faa55;
+  --radius:18px; --shadow:0 10px 30px rgba(23,55,35,.08); --shadow-lg:0 20px 44px rgba(23,55,35,.12);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -140,7 +142,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .cat-tile img{width:100%;aspect-ratio:4/3;object-fit:cover}
 .cat-tile .cat-body{padding:14px 16px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .cat-tile b{font-size:16px;letter-spacing:-.01em}
-.cat-tile span.arrow{color:var(--blue);font-weight:800;font-size:18px}
+.cat-tile span.arrow{color:var(--green-dark);font-weight:800;font-size:18px}
 .cat-tile p{margin:2px 16px 14px;color:var(--muted);font-size:13.5px}
 
 /* Trust strip */
@@ -173,7 +175,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .product img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--band)}
 .product-body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
 .product-tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;background:var(--amber-soft);color:#7a5a00;border:1px solid #f3d27a;padding:5px 8px;border-radius:999px}
+.tag{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;background:var(--green-soft);color:var(--green-dark);border:1px solid #BFE0C2;padding:5px 8px;border-radius:999px}
 .tag-gender{background:var(--blue-soft);color:var(--blue-dark);border-color:#c9dff5}
 .tag-sale{background:#fdeeee;color:#a61c1c;border-color:#f3b8b8}
 .product h3{margin:2px 0 0;font-size:18px;line-height:1.25}
@@ -181,7 +183,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .product .spacer{flex:1}
 .price-row{border-top:1px solid var(--line);padding-top:12px;margin-top:4px;display:grid;gap:10px}
 .price-line{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
-.price{font-size:20px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.price{font-size:20px;font-weight:800;letter-spacing:-.02em;color:var(--green-dark)}
 .was-price{font-size:14.5px;color:var(--muted);font-weight:600}
 .price-note{font-size:13px;color:var(--muted);font-weight:600}
 .empty-state{background:#fff;border:1px dashed #b9cfe2;border-radius:20px;padding:36px 22px;text-align:center;box-shadow:var(--shadow)}
@@ -212,7 +214,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);ba
 .kit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:820px}
 
 /* Eye-test CTA banner */
-.cta-banner{background:linear-gradient(120deg,var(--blue) 0%,#0a8fa8 100%);border-radius:24px;color:#fff;padding:36px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;box-shadow:var(--shadow-lg)}
+.cta-banner{background:linear-gradient(120deg,var(--blue) 0%,#2E7D4E 100%);border-radius:24px;color:#fff;padding:36px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;box-shadow:var(--shadow-lg)}
 .cta-banner h2{margin:6px 0 10px;font-size:clamp(28px,4vw,38px);letter-spacing:-.03em;line-height:1.08}
 .cta-banner p{color:#dcefff;margin:0;font-size:16px}
 .cta-banner .kicker{color:#a8dcff}
@@ -340,7 +342,7 @@ img,video{max-width:100%}
 .carousel-slide .c-body{padding:28px;display:flex;flex-direction:column;gap:10px;justify-content:center}
 .carousel-slide .c-body h3{font-size:clamp(24px,3.4vw,34px);margin:2px 0 0;letter-spacing:-.02em;line-height:1.1}
 .carousel-slide .c-body p{color:var(--muted);margin:0;font-size:16px}
-.carousel-slide .c-price{font-size:24px;font-weight:800}
+.carousel-slide .c-price{font-size:24px;font-weight:800;color:var(--green-dark)}
 .carousel-slide .c-price s{font-size:16px;color:var(--muted);font-weight:600;margin-left:8px}
 .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow);cursor:pointer;font-size:22px;display:grid;place-items:center;z-index:3;color:var(--ink)}
 .carousel-btn.prev{left:12px}.carousel-btn.next{right:12px}
@@ -401,6 +403,57 @@ img,video{max-width:100%}
 .carousel-dots button.active{background:transparent}
 .carousel-dots button.active::before{background:var(--blue);width:28px}
 
+
+/* === Opticart logo branding, theme toggle & dark mode (2026-11-15) === */
+html{color-scheme:light}
+[data-theme="dark"]{color-scheme:dark}
+.brand-logo{height:52px;width:auto}
+.brand-logo-mm{height:36px;width:auto}
+.footer-logo{width:44px;height:44px;border-radius:12px;object-fit:cover;flex-shrink:0}
+.about-logo{width:min(380px,100%);height:auto;border-radius:14px;margin-bottom:16px}
+.logo-dark{display:none}
+[data-theme="dark"] .logo-light{display:none}
+[data-theme="dark"] .logo-dark{display:block}
+.theme-toggle{width:46px;height:46px;min-height:46px;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:20px;line-height:1;display:grid;place-items:center;color:var(--ink);flex-shrink:0;padding:0;font-family:inherit}
+.theme-toggle:hover{border-color:var(--blue)}
+.mm-theme{width:100%;height:auto;min-height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:15px;font-weight:800;margin-bottom:10px}
+@media(max-width:900px){.brand-logo{height:38px}.brand-logo-mm{height:32px}}
+[data-theme="dark"]{--bg:#070707;--band:#101418;--band-blue:#0C1421;--card:#14181D;--ink:#EDF3F9;--muted:#A5B5C4;--line:#28313C;--blue:#2E7CF6;--blue-dark:#8FBBFF;--blue-soft:#12263F;--green:#2BD94A;--green-dark:#2BD94A;--green-soft:#0E2417;--teal:#2BD94A;--teal-soft:#0E2417;--amber:#FFB020;--amber-soft:#2B2110;--wa:#22C05E;--shadow:0 10px 30px rgba(0,0,0,.5);--shadow-lg:0 20px 44px rgba(0,0,0,.6)}
+[data-theme="dark"] header.site{background:rgba(0,0,0,.94)}
+[data-theme="dark"] .status-pill,[data-theme="dark"] .eyebrow,[data-theme="dark"] .rating-card,[data-theme="dark"] .meta-chip,[data-theme="dark"] .float-card,[data-theme="dark"] .cat-tile,[data-theme="dark"] .product,[data-theme="dark"] .shop-controls,[data-theme="dark"] .lens-card,[data-theme="dark"] .shape-card,[data-theme="dark"] .hours-card,[data-theme="dark"] .step,[data-theme="dark"] .why-card,[data-theme="dark"] .empty-state,[data-theme="dark"] .faq,[data-theme="dark"] .booking,[data-theme="dark"] .carousel,[data-theme="dark"] .mobile-menu,[data-theme="dark"] .mm-close,[data-theme="dark"] .hamburger,[data-theme="dark"] .filter-btn,[data-theme="dark"] .trust-item .icon{background:var(--card)}
+[data-theme="dark"] .carousel-dots{background:var(--card)}
+[data-theme="dark"] .btn{background:var(--card)}
+[data-theme="dark"] .btn-blue{background:var(--blue);color:#fff}
+[data-theme="dark"] .btn-wa{background:var(--wa);color:#fff}
+[data-theme="dark"] .btn-white{background:#fff;color:#173D7A}
+[data-theme="dark"] .page-hero{background:linear-gradient(180deg,var(--band-blue) 0%,var(--bg) 100%)}
+[data-theme="dark"] .trust{border-top-color:#1E4630;border-bottom-color:#1E4630}
+[data-theme="dark"] .trust-item p{color:var(--muted)}
+[data-theme="dark"] .tag{border-color:#1E4630}
+[data-theme="dark"] .tag-gender{border-color:#274A75}
+[data-theme="dark"] .tag-sale{background:#331416;color:#FF9D9D;border-color:#5C2326}
+[data-theme="dark"] .mk-dont{background:#331416;color:#FF9D9D}
+[data-theme="dark"] .nepali{color:#FFD98A;border-color:#5A4718}
+[data-theme="dark"] .cta-banner{background:linear-gradient(120deg,#123A75 0%,#0B4D2E 100%)}
+[data-theme="dark"] .hours-card.featured{background:#123A75;border-color:#123A75}
+[data-theme="dark"] .carousel-btn{background:var(--card);color:var(--ink)}
+[data-theme="dark"] .carousel-dots button::before{background:#3A4756}
+[data-theme="dark"] .carousel-dots button.active::before{background:var(--blue)}
+[data-theme="dark"] .empty-state{border-color:#33465C}
+[data-theme="dark"] #prodList>div{background:var(--card)!important}
+[data-theme="dark"] #savedMsg{color:#7CE88D;border-color:#1E4630}
+[data-theme="dark"] .sticky-cta a:last-child,[data-theme="dark"] .mm-foot .row a:last-child{background:#2A3442!important}
+@media(max-width:900px){[data-theme="dark"] .sticky-cta{background:#0B0D10}}
+
+/* Carousel first on homepage: keep slide CTAs clear of the sticky contact bar on phones */
+@media(max-width:900px){
+  .carousel-section{padding-top:4px}
+  .carousel-section .sec-head{margin-bottom:6px}
+  .carousel-slide .c-img img{aspect-ratio:2/1}
+  .carousel-slide .c-body{padding:16px 20px;gap:8px}
+  .carousel-dots{padding:0 10px}
+  .carousel-slide .c-body .btn{width:auto;flex:1 1 0;padding:12px 6px;font-size:13.5px;white-space:nowrap}
+}
 </style>
 </head>
 <body>
@@ -421,10 +474,8 @@ img,video{max-width:100%}
 <header class="site">
   <div class="container nav">
     <a class="logo" href="../index.html" aria-label="Opticart home">
-      <span class="logo-mark" aria-hidden="true">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="7" cy="14" r="3.2"/><circle cx="17" cy="14" r="3.2"/><path d="M10.2 14h3.6M3.8 14 2 9m20 5 1.8-5"/></svg>
-      </span>
-      <span><b>OPTICART</b><span>Eyecare Center • Bhaktapur</span></span>
+      <img class="brand-logo logo-light" src="logo-full.png" alt="Opticart — Clarity in Every Blink"/>
+      <img class="brand-logo logo-dark" src="logo-dark.png" alt="" aria-hidden="true"/>
     </a>
     <nav class="nav-links" aria-label="Main">
       <a href="../index.html" data-nav="home">Home</a>
@@ -437,6 +488,7 @@ img,video{max-width:100%}
     <div class="nav-actions">
       <a class="btn btn-outline btn-sm" href="https://maps.app.goo.gl/D6nKyBReMZUmKQRM9?g_st=ac" target="_blank" rel="noopener">Directions</a>
       <a class="btn btn-blue btn-sm" href="checkup.html">Book Checkup</a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode"><span class="tt-icon" aria-hidden="true">🌙</span></button>
       <button class="hamburger" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -447,9 +499,7 @@ img,video{max-width:100%}
 <div class="menu-backdrop" id="menuBackdrop" hidden></div>
 <nav class="mobile-menu" id="mobileMenu" aria-label="Menu" aria-hidden="true">
   <div class="mm-head">
-    <span style="display:flex;align-items:center;gap:10px">
-      <span class="logo-mark" style="width:38px;height:38px;border-radius:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="7" cy="14" r="3.2"/><circle cx="17" cy="14" r="3.2"/><path d="M10.2 14h3.6M3.8 14 2 9m20 5 1.8-5"/></svg></span>
-      <b style="font-size:18px;letter-spacing:-.02em">OPTICART</b>
+    <span style="display:flex;align-items:center;gap:10px"><img class="brand-logo-mm logo-light" src="logo-full.png" alt="Opticart — Clarity in Every Blink"/><img class="brand-logo-mm logo-dark" src="logo-dark.png" alt="" aria-hidden="true"/>
     </span>
     <button class="mm-close" id="menuClose" type="button" aria-label="Close menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
@@ -464,6 +514,7 @@ img,video{max-width:100%}
     <a href="about.html" data-nav="about">About Us <span class="arr">→</span></a>
   </div>
   <div class="mm-foot">
+    <button class="theme-toggle mm-theme" type="button" aria-label="Switch to dark mode"><span class="tt-icon" aria-hidden="true">🌙</span><span class="tt-label">Dark mode</span></button>
     <div class="row">
       <a href="tel:015925035" style="background:var(--blue);color:#fff">📞 Call</a>
       <a href="https://wa.me/9779701926426?text=Hello%20Opticart%2C%20I%20want%20to%20book%20an%20eye%20checkup." target="_blank" rel="noopener" style="background:var(--wa);color:#fff">💬 WhatsApp</a>
@@ -536,7 +587,7 @@ img,video{max-width:100%}
 
 <footer>
   <div class="container footer-grid">
-    <div><div style="display:flex;gap:10px;align-items:center;margin-bottom:10px"><span class="logo-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="7" cy="14" r="3.2"/><circle cx="17" cy="14" r="3.2"/><path d="M10.2 14h3.6M3.8 14 2 9m20 5 1.8-5"/></svg></span><b style="font-size:20px">OPTICART</b></div><p style="color:var(--muted);font-size:14.5px;max-width:380px;margin:0">Clarity in Every Blink. Providing quality eyewear and expert eyecare services in Bhaktapur. Women-owned eyecare center.</p><p style="margin-top:12px"><span class="stars">★★★★★</span> <strong>4.9</strong> <span style="color:var(--muted)">· 102 Google reviews</span></p></div>
+    <div><div style="display:flex;gap:10px;align-items:center;margin-bottom:10px"><img class="footer-logo" src="logo-icon.png" alt="Opticart — Clarity in Every Blink"/><b style="font-size:20px">OPTICART</b></div><p style="color:var(--muted);font-size:14.5px;max-width:380px;margin:0">Clarity in Every Blink. Providing quality eyewear and expert eyecare services in Bhaktapur. Women-owned eyecare center.</p><p style="margin-top:12px"><span class="stars">★★★★★</span> <strong>4.9</strong> <span style="color:var(--muted)">· 102 Google reviews</span></p></div>
     <div><b>Pages</b><ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px"><li><a href="../index.html">Home</a></li><li><a href="checkup.html">Checkup</a></li><li><a href="collections.html">Collections</a></li><li><a href="glasses-types.html">Glasses Types</a></li><li><a href="eye-care-kit.html">Eye Care Kit</a></li><li><a href="about.html">About Us</a></li><li><a href="admin.html">Admin</a></li></ul></div>
     <div><b>Contact</b><ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px;color:var(--muted);font-size:14.5px"><li data-info="address">Dakshin Barahi, Dadhikot-4, Madhyapur Thimi, Bhaktapur, Nepal</li><li><a href="tel:015925035">01-5925035</a> · <a href="tel:+9779701926426">970-1926426</a></li><li><a href="https://instagram.com/opticartnepal" target="_blank" rel="noopener">@opticartnepal on Instagram</a></li><li data-info="examLine">Open every day · Eye exams daily 5–7 PM</li></ul></div>
   </div>
@@ -554,15 +605,13 @@ img,video{max-width:100%}
 var OPTICART_KEY='opticart_admin_v1';
 var OPTICART_DEFAULTS={
  products:[{"name": "Aviator Classic", "price": 4500, "was": 5500, "category": "frames", "gender": "unisex", "image": "products/aviator.jpg", "desc": "Timeless aviator, premium titanium"}, {"name": "Wayfarer Premium", "price": 5200, "was": null, "category": "frames", "gender": "men", "image": "products/wayfarer.jpg", "desc": "Iconic wayfarer, acetate"}, {"name": "Polarized Sport", "price": 6800, "was": 8000, "category": "sunglasses", "gender": "men", "image": "products/polarized.jpg", "desc": "Polarized, UV400"}, {"name": "Round Vintage", "price": 3800, "was": null, "category": "frames", "gender": "women", "image": "products/round.jpg", "desc": "Retro round, thin metal"}, {"name": "Cat Eye Luxe", "price": 4200, "was": null, "category": "frames", "gender": "women", "image": "products/cateye.jpg", "desc": "Elegant cat-eye, acetate"}, {"name": "Blue Light Blocker", "price": 2500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-blue.jpg", "desc": "Screen protection, anti-reflective"}, {"name": "Progressive Lens Pack", "price": 8500, "was": 10000, "category": "lenses", "gender": "unisex", "image": "products/lens-prog.jpg", "desc": "All-distance progressive"}, {"name": "Leather Case Premium", "price": 800, "was": null, "category": "accessories", "gender": "unisex", "image": "products/case.jpg", "desc": "Genuine leather case"}, {"name": "Cleaning Kit Pro", "price": 350, "was": null, "category": "accessories", "gender": "unisex", "image": "products/cleaning.jpg", "desc": "Microfiber + solution kit"}, {"name": "Clubmaster Classic", "price": 5800, "was": null, "category": "sunglasses", "gender": "unisex", "image": "products/clubmaster.jpg", "desc": "Browline, metal/acetate"}, {"name": "Titanium Flex", "price": 7200, "was": null, "category": "frames", "gender": "men", "image": "products/titanium.jpg", "desc": "Ultra-light titanium flex"}, {"name": "Oversized Square", "price": 4800, "was": null, "category": "sunglasses", "gender": "women", "image": "products/oversized.jpg", "desc": "Bold oversized, UV400"}, {"name": "Kids Colorful", "price": 1800, "was": null, "category": "frames", "gender": "kids", "image": "products/lens-blue.jpg", "desc": "Durable flexible kids frames"}, {"name": "Single Vision Lens", "price": 1500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-blue.jpg", "desc": "Scratch-resistant single vision"}, {"name": "Bifocal Lens Premium", "price": 3500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-prog.jpg", "desc": "Near + far bifocal"}, {"name": "Progressive Varifocal", "price": 6500, "was": 7500, "category": "lenses", "gender": "unisex", "image": "products/lens-blue.jpg", "desc": "Seamless progressive, multi-coat"}, {"name": "Photochromic Lens", "price": 4500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-prog.jpg", "desc": "Darkens outdoors, UV protection"}, {"name": "High Index Thin Lens", "price": 5500, "was": null, "category": "lenses", "gender": "unisex", "image": "products/lens-blue.jpg", "desc": "Ultra-thin for high power"}],
- info:{phone:"01-5925035",whatsapp:"970-1926426",whatsappIntl:"9779701926426",address:"Dakshin Barahi, Dadhikot-4, Madhyapur Thimi, Bhaktapur, Nepal",shopHours:"Sun\u2013Fri 8 AM\u20138 PM \u00b7 Sat 8 AM\u20139 PM",examHours:"Daily 5 PM\u20137 PM"},
- hero:{heading:"Clarity in every blink.",subtext:"Quality eyewear and expert eyecare in Bhaktapur \u2014 daily eye checkup by a specialist doctor, glasses made exactly to your prescription, and frames you'll love to wear.",image:"assets/hero-display.jpg"}
+ info:{phone:"01-5925035",whatsapp:"970-1926426",whatsappIntl:"9779701926426",address:"Dakshin Barahi, Dadhikot-4, Madhyapur Thimi, Bhaktapur, Nepal",shopHours:"Sun\u2013Fri 8 AM\u20138 PM \u00b7 Sat 8 AM\u20139 PM",examHours:"Daily 5 PM\u20137 PM"}
 };
 var OPTICART_SAVED=null;
 try{ var _raw=localStorage.getItem(OPTICART_KEY); if(_raw) OPTICART_SAVED=JSON.parse(_raw); }catch(e){}
 var OPTICART_DATA={
  products:(OPTICART_SAVED&&OPTICART_SAVED.products&&OPTICART_SAVED.products.length)?OPTICART_SAVED.products:OPTICART_DEFAULTS.products,
- info:Object.assign({},OPTICART_DEFAULTS.info,(OPTICART_SAVED&&OPTICART_SAVED.info)||{}),
- hero:Object.assign({},OPTICART_DEFAULTS.hero,(OPTICART_SAVED&&OPTICART_SAVED.hero)||{})
+ info:Object.assign({},OPTICART_DEFAULTS.info,(OPTICART_SAVED&&OPTICART_SAVED.info)||{})
 };
 function ocImg(src){ if(!src) return ''; if(/^(https?:)?\/\//.test(src)||src.indexOf('data:')===0) return src; if(src.indexOf('products/')>-1||src.indexOf('/')>-1) return src; return 'products/'+src; }
 function ocFmt(n){ return Number(n||0).toLocaleString('en-US'); }
@@ -591,11 +640,6 @@ function ocCard(p){
    else if(k==='examLine') v='Open every day \u00b7 Eye exams '+String(info.examHours||'').replace(/^Daily\s*/i,'daily ');
    if(v) el.textContent=pre+v;
  });
- if(OPTICART_SAVED){
-   var h=document.querySelector('[data-hero="heading"]'); if(h&&OPTICART_DATA.hero.heading&&OPTICART_DATA.hero.heading!==OPTICART_DEFAULTS.hero.heading) h.textContent=OPTICART_DATA.hero.heading;
-   var s=document.querySelector('[data-hero="subtext"]'); if(s&&OPTICART_DATA.hero.subtext&&OPTICART_DATA.hero.subtext!==OPTICART_DEFAULTS.hero.subtext) s.textContent=OPTICART_DATA.hero.subtext;
-   var im=document.querySelector('[data-hero="image"]'); if(im&&OPTICART_DATA.hero.image&&OPTICART_DATA.hero.image!==OPTICART_DEFAULTS.hero.image) im.src=OPTICART_DATA.hero.image;
- }
  var grid=document.getElementById('collectionGrid');
  if(grid){ grid.innerHTML=OPTICART_DATA.products.map(ocCard).join(''); }
  var feat=document.getElementById('featuredGrid');
@@ -710,6 +754,30 @@ if(bookFormEl) bookFormEl.addEventListener('submit',function(e){
   var msg='Hello Opticart, '+(name?('I am '+name+'. '):'')+'I want: '+svc+'. Preferred time: '+time+'.';
   window.open(waBase+encodeURIComponent(msg),'_blank');
 });
+</script>
+
+<script>
+/* Theme toggle - Opticart dark mode (saved in localStorage opticart_theme) */
+(function(){
+  function isDark(){ return document.documentElement.getAttribute('data-theme')==='dark'; }
+  function paint(){
+    var d=isDark();
+    document.querySelectorAll('.theme-toggle').forEach(function(b){
+      var ic=b.querySelector('.tt-icon'); if(ic) ic.textContent=d?'\u2600\uFE0F':'\uD83C\uDF19';
+      var lb=b.querySelector('.tt-label'); if(lb) lb.textContent=d?'Light mode':'Dark mode';
+      b.setAttribute('aria-label', d?'Switch to light mode':'Switch to dark mode');
+    });
+  }
+  document.querySelectorAll('.theme-toggle').forEach(function(b){
+    b.addEventListener('click',function(){
+      var d=!isDark();
+      if(d) document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('opticart_theme', d?'dark':'light'); }catch(e){}
+      paint();
+    });
+  });
+  paint();
+})();
 </script>
 </body>
 </html>
